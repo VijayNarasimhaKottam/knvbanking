@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Statement — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/statement.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  
+  <!-- Page Specific JS -->
+  <script src="js/statement.js"></script>
+</head>
+<body class="auth-layout">
+
+  <!-- Content to be injected into <main> by router.js -->
+  <div class="page-header">
+    <h1 class="page-title">Account Statement</h1>
+    <p class="page-subtitle">View, search, and download your transaction history.</p>
+  </div>
+
+  <div class="statement-layout">
+    
+    <!-- Summary Cards -->
+    <div class="statement-summary">
+      <div class="summary-card in">
+        <div class="summary-icon">↓</div>
+        <div class="summary-details">
+          <span class="summary-label">Total Money In</span>
+          <span class="summary-val" id="sum-in">₹0.00</span>
+        </div>
+      </div>
+      <div class="summary-card out">
+        <div class="summary-icon">↑</div>
+        <div class="summary-details">
+          <span class="summary-label">Total Money Out</span>
+          <span class="summary-val" id="sum-out">₹0.00</span>
+        </div>
+      </div>
+      <div class="summary-card net">
+        <div class="summary-icon">⚖️</div>
+        <div class="summary-details">
+          <span class="summary-label">Net Flow</span>
+          <span class="summary-val" id="sum-net">₹0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls / Filters -->
+    <div class="statement-controls">
+      <div class="filters-group">
+        <div class="filter-item">
+          <label for="filter-type">Type</label>
+          <select id="filter-type" data-testid="stmt-filter-type">
+            <option value="all">All Transactions</option>
+            <option value="credit">Money In (Credit)</option>
+            <option value="debit">Money Out (Debit)</option>
+          </select>
+        </div>
+        
+        <div class="filter-item">
+          <label for="filter-month">Time Period</label>
+          <select id="filter-month" data-testid="stmt-filter-month">
+            <!-- Populated by JS -->
+          </select>
+        </div>
+        
+        <div class="filter-item">
+          <label for="filter-search">Search</label>
+          <input type="text" id="filter-search" placeholder="Ref No. or Description" style="width: 220px;" data-testid="stmt-filter-search">
+        </div>
+      </div>
+      
+      <div class="actions-group">
+        <button id="btn-download" class="btn btn-outline" data-testid="stmt-download">
+          <span style="margin-right: 8px;">⬇️</span> Download PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="statement-table-container">
+      <table class="statement-table">
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>Description & Ref No.</th>
+            <th>Type</th>
+            <th class="amount-col">Amount (₹)</th>
+            <th class="balance-col">Balance (₹)</th>
+          </tr>
+        </thead>
+        <tbody id="statement-tbody">
+          <!-- Populated by JS -->
+          <tr><td colspan="5" style="text-align: center; padding: 2rem;">Loading...</td></tr>
+        </tbody>
+      </table>
+      
+      <!-- Pagination -->
+      <div class="pagination">
+        <div class="page-info" id="page-info">Page 1 of 1</div>
+        <div class="page-controls">
+          <button id="btn-prev-page" class="page-btn" disabled data-testid="stmt-prev">←</button>
+          <button id="btn-next-page" class="page-btn" disabled data-testid="stmt-next">→</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

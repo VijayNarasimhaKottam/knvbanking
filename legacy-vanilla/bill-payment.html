@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bill Payments — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/bill-payment.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  
+  <!-- Page Specific JS -->
+  <script src="js/bill-payment.js"></script>
+</head>
+<body class="auth-layout">
+
+  <div class="page-header">
+    <h1 class="page-title">Bill Payments</h1>
+    <p class="page-subtitle">Pay your utility bills, credit cards, and recharges instantly.</p>
+  </div>
+
+  <div class="bill-layout">
+    
+    <!-- Sidebar: Categories -->
+    <div class="bill-categories">
+      <div class="category-header">Categories</div>
+      <div class="category-list">
+        <div class="category-item active" data-category="electricity" data-testid="cat-electricity">
+          <span class="cat-icon">⚡</span>
+          <span>Electricity</span>
+        </div>
+        <div class="category-item" data-category="mobile" data-testid="cat-mobile">
+          <span class="cat-icon">📱</span>
+          <span>Mobile Postpaid</span>
+        </div>
+        <div class="category-item" data-category="dth" data-testid="cat-dth">
+          <span class="cat-icon">📺</span>
+          <span>DTH / Cable</span>
+        </div>
+        <div class="category-item" data-category="water" data-testid="cat-water">
+          <span class="cat-icon">💧</span>
+          <span>Water</span>
+        </div>
+        <div class="category-item" data-category="gas" data-testid="cat-gas">
+          <span class="cat-icon">🔥</span>
+          <span>Piped Gas</span>
+        </div>
+        <div class="category-item" data-category="broadband" data-testid="cat-broadband">
+          <span class="cat-icon">🌐</span>
+          <span>Broadband</span>
+        </div>
+        <div class="category-item" data-category="credit_card" data-testid="cat-cc">
+          <span class="cat-icon">💳</span>
+          <span>Credit Card</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="bill-main">
+      
+      <!-- View 1: Initial Empty State -->
+      <div class="bill-view active" id="view-empty">
+        <div class="biller-empty-state">
+          <div class="biller-empty-icon">🧾</div>
+          <h2 style="margin-bottom: 8px;">Select a Category</h2>
+          <p>Choose a category from the left menu to view available billers and make a payment.</p>
+        </div>
+      </div>
+
+      <!-- View 2: Biller List -->
+      <div class="bill-view" id="view-biller-list">
+        <h3 id="biller-list-title" style="font-size: var(--text-lg); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-light);">Select Biller</h3>
+        <div class="biller-grid" id="biller-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- View 3: Fetch Bill Form -->
+      <div class="bill-view" id="view-fetch-bill">
+        <div style="margin-bottom: var(--space-6);">
+          <button id="btn-back-to-list" class="btn btn-sm btn-outline">← Back to Billers</button>
+        </div>
+        
+        <div class="fetch-bill-form">
+          <div class="fetch-header">
+            <div class="fetch-biller-logo" id="fetch-logo"></div>
+            <h2 id="fetch-name" style="font-size: var(--text-xl);">Biller Name</h2>
+          </div>
+          
+          <form id="form-fetch-bill" novalidate>
+            <div id="fetch-input-container">
+              <!-- Dynamically populated inputs based on biller -->
+            </div>
+            
+            <button type="submit" id="btn-fetch" class="btn btn-primary w-full mt-6">Fetch Bill</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- View 4: Pay Bill -->
+      <div class="bill-view" id="view-pay-bill">
+        <div class="pay-bill-card">
+          <div style="text-align: center; margin-bottom: var(--space-6);">
+            <div class="fetch-biller-logo" id="pay-logo" style="width: 64px; height: 64px; font-size: 24px;"></div>
+            <h3 id="pay-name" style="font-size: var(--text-lg); font-weight: 600;">Biller Name</h3>
+          </div>
+          
+          <div class="bill-amount-display">
+            <div class="label">Amount Due</div>
+            <div class="val" id="bill-amt-val">₹0.00</div>
+          </div>
+          
+          <div class="bill-details-list">
+            <div class="bill-detail-row">
+              <span class="lbl">Customer Name</span>
+              <span class="vl" id="bill-cust-name">---</span>
+            </div>
+            <div class="bill-detail-row">
+              <span class="lbl">Due Date</span>
+              <span class="vl" id="bill-due-date" style="color: var(--color-danger);">---</span>
+            </div>
+          </div>
+
+          <div id="pay-balance-alert" class="alert alert-danger" style="display: none; margin-bottom: var(--space-4);"></div>
+          
+          <div style="display: flex; gap: var(--space-4); margin-top: var(--space-6);">
+            <button type="button" id="btn-cancel-pay" class="btn btn-outline w-full">Cancel</button>
+            <button type="button" id="btn-pay-bill" class="btn btn-primary w-full">Pay Securely</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- View 5: Receipt -->
+      <div class="bill-view" id="view-receipt">
+        <div style="text-align: center; padding: var(--space-12) 0;">
+          <div style="width: 80px; height: 80px; background: var(--color-success-light); color: var(--color-success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto var(--space-6);">✓</div>
+          <h2 style="font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-2);">Payment Successful</h2>
+          <div style="font-family: var(--font-mono); color: var(--color-text-secondary); margin-bottom: var(--space-8); font-size: var(--text-sm);" id="receipt-ref">Ref: ---</div>
+
+          <div style="background: var(--color-surface); border: 1px dashed var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); text-align: left; max-width: 400px; margin: 0 auto var(--space-8);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-3); font-size: var(--text-sm);">
+              <span style="color: var(--color-text-secondary);">Date & Time</span>
+              <span style="font-weight: 600; font-family: var(--font-mono);" id="receipt-date">---</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-3); font-size: var(--text-sm);">
+              <span style="color: var(--color-text-secondary);">Amount Paid</span>
+              <span style="font-weight: 600; font-family: var(--font-mono); color: var(--color-success); font-size: var(--text-lg);" id="receipt-amount">---</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: var(--text-sm);">
+              <span style="color: var(--color-text-secondary);">Biller</span>
+              <span style="font-weight: 600; font-family: var(--font-mono);" id="receipt-biller">---</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: var(--space-4); justify-content: center;">
+            <button type="button" class="btn btn-outline" onclick="window.print()">🖨️ Print</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.reload()">Pay Another Bill</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Trigger first category click to avoid empty state if preferred
+    // setTimeout(() => document.querySelector('.category-item').click(), 100);
+  </script>
+</body>
+</html>

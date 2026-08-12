@@ -1,0 +1,228 @@
+/* ============================================================
+   KVN BANK — BILL PAYMENT CSS
+   Categories grid, biller selection, payment flow
+   ============================================================ */
+
+.bill-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-8);
+  height: calc(100vh - var(--topnav-height) - var(--space-8) - var(--space-12)); /* Adjust for header */
+}
+
+@media (max-width: 900px) {
+  .bill-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+
+/* Sidebar Categories */
+.bill-categories {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-header {
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-surface-alt);
+  border-bottom: 1px solid var(--color-border-light);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+.category-item:hover {
+  background: var(--color-surface);
+  color: var(--color-primary-mid);
+}
+
+.category-item.active {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-left: 4px solid var(--color-primary);
+}
+
+.cat-icon {
+  font-size: 20px;
+}
+
+/* Main Content Area */
+.bill-main {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.bill-view {
+  display: none;
+  padding: var(--space-8);
+  animation: fade-in-scale 0.3s ease;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.bill-view.active {
+  display: block;
+}
+
+/* View 1: Select Biller */
+.biller-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.biller-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: var(--color-surface);
+}
+
+.biller-card:hover {
+  border-color: var(--color-primary-mid);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.biller-logo {
+  width: 56px;
+  height: 56px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-3);
+  font-size: 24px;
+}
+
+.biller-name {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+}
+
+/* View 2: Fetch Bill Form */
+.fetch-bill-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.fetch-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.fetch-biller-logo {
+  width: 80px;
+  height: 80px;
+  background: var(--color-surface-alt);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto var(--space-4);
+}
+
+/* View 3: Pay Bill */
+.pay-bill-card {
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+}
+
+.bill-amount-display {
+  text-align: center;
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.bill-amount-display .label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-2);
+}
+
+.bill-amount-display .val {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.bill-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.bill-detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+}
+
+.bill-detail-row .lbl { color: var(--color-text-secondary); }
+.bill-detail-row .vl { font-weight: 600; }
+
+/* Empty / Initial State */
+.biller-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.biller-empty-icon {
+  font-size: 48px;
+  margin-bottom: var(--space-4);
+  opacity: 0.5;
+}

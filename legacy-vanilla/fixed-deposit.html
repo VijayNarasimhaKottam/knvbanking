@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixed Deposits — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/fixed-deposit.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  
+  <!-- Page Specific JS -->
+  <script src="js/fixed-deposit.js"></script>
+</head>
+<body class="auth-layout">
+
+  <div class="page-header">
+    <h1 class="page-title">Fixed Deposits</h1>
+    <p class="page-subtitle">Grow your wealth with secure, high-yield fixed deposits.</p>
+  </div>
+
+  <div class="fd-layout">
+    
+    <!-- Main Content: Calculator & Actions -->
+    <div class="fd-main">
+      
+      <div class="fd-calculator">
+        <h2 style="font-size: var(--text-lg); margin-bottom: var(--space-6);">Calculate & Book FD</h2>
+        
+        <!-- Principal Amount -->
+        <div class="calc-section">
+          <div class="calc-header">
+            <span class="calc-label">Investment Amount</span>
+            <div class="calc-input-box">
+              <span>₹</span>
+              <input type="text" id="calc-amt-input" value="1,00,000" data-testid="fd-amt-input">
+            </div>
+          </div>
+          <input type="range" id="calc-amt-slider" class="range-slider" min="10000" max="10000000" step="5000" value="100000" data-testid="fd-amt-slider">
+          <div class="slider-labels">
+            <span>₹10,000</span>
+            <span>₹1 Crore</span>
+          </div>
+        </div>
+
+        <!-- Tenure -->
+        <div class="calc-section">
+          <div class="calc-header">
+            <span class="calc-label">Tenure (Months)</span>
+            <div class="calc-input-box">
+              <input type="number" id="calc-tenure-input" value="12" min="1" max="120" style="width: 50px;" data-testid="fd-tenure-input">
+              <span style="margin-left: 4px; margin-right: 0;">Mo</span>
+            </div>
+          </div>
+          <input type="range" id="calc-tenure-slider" class="range-slider" min="1" max="120" step="1" value="12" data-testid="fd-tenure-slider">
+          <div class="slider-labels">
+            <span>1 Month</span>
+            <span>10 Years</span>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="calc-results">
+          <div class="result-item">
+            <span class="result-label">Principal</span>
+            <span class="result-val" id="res-principal">₹0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Interest Earned</span>
+            <span class="result-val" id="res-interest" style="color: var(--color-success);">₹0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Maturity Amount</span>
+            <span class="result-val highlight" id="res-maturity">₹0</span>
+          </div>
+        </div>
+
+        <button id="btn-book-fd" class="btn btn-primary w-full mt-6" data-testid="fd-book-btn">Book FD Now</button>
+        <p style="text-align: center; font-size: var(--text-xs); color: var(--color-text-secondary); margin-top: var(--space-4);">
+          By clicking above, you agree to the <a href="#">Terms & Conditions</a> of KVN Bank Fixed Deposits.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Sidebar: Active FDs & Rates -->
+    <div class="fd-sidebar">
+      
+      <!-- Active FDs -->
+      <div style="margin-bottom: var(--space-8);">
+        <div class="fd-list-header">
+          <h3 style="font-size: var(--text-base);">Your Active FDs</h3>
+          <button class="btn btn-sm btn-outline" style="padding: 4px 8px; font-size: 12px;">View All</button>
+        </div>
+        
+        <div id="active-fd-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Rates Widget -->
+      <div class="rates-widget">
+        <h3 style="font-size: var(--text-base); margin-bottom: var(--space-2);">Current Interest Rates</h3>
+        <p style="font-size: var(--text-sm); color: var(--color-text-secondary);">Your current selection offers <strong id="current-rate" style="color: var(--color-primary);">7.0% p.a.</strong></p>
+        
+        <table class="rates-table">
+          <thead>
+            <tr>
+              <th>Tenure</th>
+              <th style="text-align: right;">Rate (p.a.)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>7 Days to 3 Months</td><td class="rate">4.50%</td></tr>
+            <tr><td>3 Months to 6 Months</td><td class="rate">5.50%</td></tr>
+            <tr><td>6 Months to 1 Year</td><td class="rate">6.50%</td></tr>
+            <tr><td>1 Year to 3 Years</td><td class="rate">7.00%</td></tr>
+            <tr><td>3 Years to 10 Years</td><td class="rate">7.50%</td></tr>
+          </tbody>
+        </table>
+        
+        <div class="alert alert-info mt-4" style="padding: var(--space-3); font-size: 12px;">
+          <div class="alert-icon" style="font-size: 16px;">💡</div>
+          <div class="alert-message">Senior citizens get an additional 0.50% p.a. on all tenures.</div>
+        </div>
+      </div>
+
+    </div>
+    
+  </div>
+
+</body>
+</html>

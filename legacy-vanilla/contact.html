@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/contact.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+</head>
+<body class="public-layout">
+
+  <!-- Fixed Public Navbar -->
+  <nav class="public-navbar" id="public-navbar">
+    <a href="index.html" class="topnav-brand">
+      <img src="assets/logo.svg" alt="KVN Bank Logo">
+      <span class="topnav-brand-name">KVN <span>Bank</span></span>
+    </a>
+    
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="contact.html" class="active">Contact Us</a>
+      <a href="locator.html">ATM & Branches</a>
+      <a href="login.html" class="btn btn-primary btn-sm" style="margin-left: 1rem; padding: 0.5rem 1.25rem;">Login</a>
+    </div>
+  </nav>
+
+  <div class="contact-hero">
+    <div class="contact-hero-content">
+      <h1>We're here to help</h1>
+      <p>Have a question or need assistance? Reach out to our dedicated support team.</p>
+    </div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <h3>Call Us 24/7</h3>
+      <p>For urgent queries, block cards, or general banking assistance.</p>
+      <a href="tel:18001234567" class="contact-link">1800 123 4567</a>
+    </div>
+    
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <h3>Email Support</h3>
+      <p>Drop us an email. We typically respond within 24 hours.</p>
+      <a href="mailto:support@kvnbank.com" class="contact-link">support@kvnbank.com</a>
+    </div>
+    
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <h3>Visit a Branch</h3>
+      <p>Speak to our banking experts at a branch near you.</p>
+      <a href="locator.html" class="contact-link" style="font-size: var(--text-lg); text-decoration: underline;">Find nearest branch</a>
+    </div>
+  </div>
+
+  <div class="support-section">
+    <div class="support-content">
+      <h2>Frequently Asked Questions</h2>
+      <p>Find quick answers to common queries without having to reach out to our team.</p>
+      
+      <div class="accordion faq-list">
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="this.nextElementSibling.classList.toggle('open')">
+            How do I reset my NetBanking password?
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              You can reset your password by clicking on the "Forgot Password" link on the login page. You will need to answer your security question and verify via OTP sent to your registered mobile number.
+            </div>
+          </div>
+        </div>
+        
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="this.nextElementSibling.classList.toggle('open')">
+            What are the timings for NEFT/RTGS transfers?
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              NEFT and RTGS services are available 24x7x365. Transactions initiated outside of standard banking hours will be processed in the next automated batch.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="this.nextElementSibling.classList.toggle('open')">
+            How can I block my debit card if lost?
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              Call our 24/7 toll-free number 1800 123 4567 immediately to block your card. You can also block it temporarily via NetBanking under the 'Card Services' section.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="support-form-wrapper">
+      <h2>Send us a message</h2>
+      <p>Fill out the form below and we'll get back to you shortly.</p>
+      
+      <form id="contact-form" onsubmit="event.preventDefault(); showToast('Message sent successfully! Our team will contact you soon.', 'success'); this.reset();">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-control" required>
+            <option value="">Select an option</option>
+            <option value="account">Account Related</option>
+            <option value="cards">Cards (Credit/Debit)</option>
+            <option value="loans">Loans & Mortgages</option>
+            <option value="netbanking">NetBanking Support</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-control" required style="min-height: 120px;"></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary w-full">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-section">
+        <div class="topnav-brand" style="margin-bottom: var(--space-4);">
+          <img src="assets/logo.svg" alt="KVN Bank Logo" style="filter: brightness(0) invert(1);">
+          <span class="topnav-brand-name" style="color: white;">KVN <span style="color: var(--color-accent);">Bank</span></span>
+        </div>
+        <p style="font-size: var(--text-sm); color: rgba(255,255,255,0.6); line-height: 1.6;">
+          A premium digital banking experience designed for the modern world.
+        </p>
+      </div>
+      <div class="footer-section">
+        <h4>Services</h4>
+        <a href="login.html">NetBanking</a>
+        <a href="register.html">Open Savings Account</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 KVN Bank. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('public-navbar');
+      if (window.scrollY > 50) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+  </script>
+</body>
+</html>

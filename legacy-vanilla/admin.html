@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/admin.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  
+  <!-- Page Specific JS -->
+  <script src="js/admin.js"></script>
+</head>
+<body class="auth-layout">
+
+  <div class="page-header">
+    <h1 class="page-title">Admin Dashboard</h1>
+    <p class="page-subtitle">System overview and user management panel.</p>
+  </div>
+
+  <div class="admin-layout">
+    
+    <!-- System Stats -->
+    <div class="admin-stats">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-details">
+          <span class="stat-label">Total Users</span>
+          <span class="stat-val" id="stat-total-users">0</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-details">
+          <span class="stat-label">Total Deposits</span>
+          <span class="stat-val" id="stat-total-deposits">₹0</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-details">
+          <span class="stat-label">Daily Txns</span>
+          <span class="stat-val" id="stat-daily-txns">0</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🟢</div>
+        <div class="stat-details">
+          <span class="stat-label">Active Sessions</span>
+          <span class="stat-val" id="stat-active-sessions">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Management -->
+    <div class="admin-table-container">
+      <div class="table-header-bar">
+        <h2>User Management</h2>
+        <div class="search-box" style="width: 250px;">
+          <input type="text" id="admin-search" class="form-control" placeholder="Search users..." style="padding: 6px 12px; font-size: 14px;">
+        </div>
+      </div>
+      
+      <div style="overflow-x: auto;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>User Details</th>
+              <th>Account No.</th>
+              <th>Role</th>
+              <th>Balance</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-user-tbody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

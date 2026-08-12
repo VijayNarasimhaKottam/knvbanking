@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/dashboard.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  
+  <!-- Page Specific JS -->
+  <script src="js/dashboard.js"></script>
+</head>
+<body class="auth-layout">
+
+  <!-- Content to be injected into <main> by router.js -->
+  <div class="page-header">
+    <h1 class="page-title" id="user-greeting">Welcome back</h1>
+    <p class="page-subtitle">Here's a summary of your accounts and recent activities.</p>
+  </div>
+
+  <div class="dashboard-grid">
+    
+    <!-- Main Content Column -->
+    <div class="dashboard-main">
+      
+      <!-- Balance Card -->
+      <div class="balance-card">
+        <div class="balance-header">
+          <div class="account-info">
+            <span class="account-type" id="dash-acc-type">Savings Account</span>
+            <span class="account-number" id="dash-acc-num">•••• 0000</span>
+          </div>
+          <div class="logo-mark">
+            <img src="assets/logo.svg" alt="KVN" height="32" style="filter: brightness(0) invert(1);">
+          </div>
+        </div>
+        
+        <div class="balance-amount">
+          <div class="balance-label">Available Balance</div>
+          <div class="balance-value" id="dash-balance">₹0.00</div>
+        </div>
+        
+        <div class="balance-actions">
+          <a href="transfer.html" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.1);">Send Money</a>
+          <a href="statement.html" class="btn btn-primary" style="background: white; color: var(--color-primary-mid);">Statement</a>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions-section">
+        <div class="section-header">
+          <h2 class="section-title">Quick Actions</h2>
+        </div>
+        
+        <div class="quick-actions-grid">
+          <a href="transfer.html" class="action-card">
+            <div class="action-icon">💸</div>
+            <span class="action-label">Transfer</span>
+          </a>
+          <a href="bill-pay.html" class="action-card">
+            <div class="action-icon">🧾</div>
+            <span class="action-label">Pay Bills</span>
+          </a>
+          <a href="deposits.html" class="action-card">
+            <div class="action-icon">💰</div>
+            <span class="action-label">Open FD</span>
+          </a>
+          <a href="cards.html" class="action-card">
+            <div class="action-icon">💳</div>
+            <span class="action-label">Manage Cards</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="quick-actions-section" style="margin-top: var(--space-8);">
+        <div class="section-header">
+          <h2 class="section-title">Recent Transactions</h2>
+          <a href="statement.html" class="btn btn-sm btn-outline">View All</a>
+        </div>
+        
+        <div class="recent-transactions">
+          <div class="txn-list" id="dash-recent-txns">
+            <!-- Loading skeleton -->
+            <div class="txn-item"><div class="skeleton" style="width: 100%; height: 40px;"></div></div>
+            <div class="txn-item"><div class="skeleton" style="width: 100%; height: 40px;"></div></div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Sidebar Column -->
+    <div class="dashboard-sidebar">
+      
+      <!-- Credit Card Mock -->
+      <div class="cc-widget">
+        <div class="cc-chip"></div>
+        <div class="cc-number" id="cc-widget-num">XXXX XXXX XXXX XXXX</div>
+        <div class="cc-details">
+          <div>
+            <div>Card Holder</div>
+            <div class="cc-val" id="cc-widget-name">NAME</div>
+          </div>
+          <div style="text-align: right;">
+            <div>Expires</div>
+            <div class="cc-val">12/28</div>
+          </div>
+        </div>
+        <img src="assets/logo.svg" alt="KVN" style="position: absolute; bottom: 20px; right: 20px; height: 24px; filter: brightness(0) invert(1); opacity: 0.5;">
+      </div>
+
+      <!-- Spending Analytics Mock -->
+      <div class="chart-widget">
+        <div style="font-weight: 600; margin-bottom: 4px;">Spending Analysis</div>
+        <div style="font-size: 12px; color: var(--color-text-secondary);">Last 7 Days</div>
+        
+        <div class="chart-bars">
+          <div class="chart-bar-container">
+            <div class="chart-bar" style="height: 10%;"></div>
+            <div class="chart-label">M</div>
+          </div>
+          <div class="chart-bar-container">
+            <div class="chart-bar" style="height: 10%;"></div>
+            <div class="chart-label">T</div>
+          </div>
+          <div class="chart-bar-container">
+            <div class="chart-bar" style="height: 10%;"></div>
+            <div class="chart-label">W</div>
+          </div>
+          <div class="chart-bar-container">
+            <div class="chart-bar" style="height: 10%;"></div>
+            <div class="chart-label">T</div>
+          </div>
+          <div class="chart-bar-container">
+            <div class="chart-bar" style="height: 10%;"></div>
+            <div class="chart-label">F</div>
+          </div>
+          <div class="chart-bar-container">
+            <div class="chart-bar" style="height: 10%;"></div>
+            <div class="chart-label">S</div>
+          </div>
+          <div class="chart-bar-container">
+            <div class="chart-bar" style="height: 10%;"></div>
+            <div class="chart-label">S</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promo Widget -->
+      <div class="chart-widget" style="background: var(--color-surface-alt); border-left: 4px solid var(--color-warning);">
+        <div style="font-weight: 600; margin-bottom: 8px;">Pre-approved Loan</div>
+        <p style="font-size: 14px; color: var(--color-text-secondary); margin-bottom: 12px; line-height: 1.4;">
+          You are eligible for a personal loan of up to ₹5,00,000 instantly.
+        </p>
+        <button class="btn btn-sm btn-primary">Apply Now</button>
+      </div>
+
+    </div>
+    
+  </div>
+
+</body>
+</html>

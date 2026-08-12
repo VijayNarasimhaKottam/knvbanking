@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beneficiaries — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/beneficiaries.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  
+  <!-- Page Specific JS -->
+  <script src="js/beneficiaries.js"></script>
+</head>
+<body class="auth-layout">
+
+  <div class="page-header">
+    <h1 class="page-title">Manage Beneficiaries</h1>
+    <p class="page-subtitle">Add or remove payees for quick and easy fund transfers.</p>
+  </div>
+
+  <div class="bene-header-actions">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-bene" class="form-control" placeholder="Search by name, bank, or a/c no..." data-testid="search-bene">
+    </div>
+    
+    <button class="btn btn-primary" id="btn-add-bene" data-testid="btn-add-bene">
+      <span style="margin-right: 8px;">+</span> Add New Beneficiary
+    </button>
+  </div>
+
+  <div class="bene-grid" id="bene-grid">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- Add Beneficiary Modal -->
+  <div class="modal" id="modal-add-bene">
+    <div class="modal-content add-bene-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New Beneficiary</h3>
+        <button class="modal-close" id="btn-close-modal">×</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="alert alert-warning" style="margin-bottom: var(--space-6);">
+          <div class="alert-icon">⚠️</div>
+          <div class="alert-message">
+            Newly added beneficiaries will be activated instantly, but a cooling period limit of ₹50,000 applies for the first 24 hours.
+          </div>
+        </div>
+
+        <form id="form-add-bene" novalidate>
+          <div class="form-group">
+            <label class="form-label">Beneficiary Name <span class="required">*</span></label>
+            <input type="text" id="bene-name" class="form-control" placeholder="Enter full name" required data-testid="bene-input-name">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Account Number <span class="required">*</span></label>
+            <input type="text" id="bene-acc" class="form-control" placeholder="Enter account number" required data-testid="bene-input-acc">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Confirm Account Number <span class="required">*</span></label>
+            <input type="text" id="bene-acc-confirm" class="form-control" placeholder="Re-enter account number" required data-testid="bene-input-acc-confirm">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">IFSC Code <span class="required">*</span></label>
+            <input type="text" id="bene-ifsc" class="form-control" placeholder="e.g. HDFC0001234" style="text-transform: uppercase;" required data-testid="bene-input-ifsc">
+          </div>
+
+          <div class="form-group" style="margin-bottom: var(--space-6);">
+            <label class="form-label">Bank Name <span class="required">*</span></label>
+            <input type="text" id="bene-bank" class="form-control" placeholder="e.g. HDFC Bank" required data-testid="bene-input-bank">
+          </div>
+          
+          <div class="modal-footer" style="margin-top: 0;">
+            <button type="button" class="btn btn-outline" id="btn-cancel-modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="btn-save-bene" data-testid="bene-btn-save">Add Beneficiary</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

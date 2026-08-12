@@ -1,0 +1,258 @@
+/* ============================================================
+   KVN BANK — LOGIN PAGE CSS
+   Split screen layout, interactive form, modern visuals
+   ============================================================ */
+
+.auth-layout {
+  display: flex;
+  min-height: 100dvh;
+  background: var(--color-surface);
+}
+
+.auth-brand-side {
+  flex: 1;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-mid));
+  color: var(--color-text-inverse);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-10);
+}
+
+@media (max-width: 900px) {
+  .auth-brand-side {
+    display: none;
+  }
+}
+
+.auth-brand-side::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(201, 168, 76, 0.15), transparent 50%);
+  z-index: 0;
+}
+
+.auth-logo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: auto;
+}
+
+.auth-logo img {
+  filter: brightness(0) invert(1);
+  height: 48px;
+}
+
+.auth-logo span {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.auth-logo span span {
+  color: var(--color-accent);
+}
+
+.auth-showcase {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+.auth-showcase h1 {
+  font-size: var(--text-4xl);
+  line-height: 1.1;
+  margin-bottom: var(--space-4);
+  background: linear-gradient(to right, #fff, #a0aec0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-showcase p {
+  font-size: var(--text-lg);
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 400px;
+}
+
+.auth-graphic {
+  position: absolute;
+  right: -50px;
+  bottom: -50px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  animation: float 10s infinite alternate ease-in-out;
+}
+
+/* Form Side */
+.auth-form-side {
+  flex: 0 0 500px;
+  background: var(--color-card);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-10) var(--space-12);
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .auth-form-side {
+    flex: 1;
+    max-width: 100%;
+    padding: var(--space-6);
+  }
+}
+
+.auth-mobile-logo {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.auth-mobile-logo img {
+  height: 40px;
+}
+
+.auth-mobile-logo span {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+@media (max-width: 900px) {
+  .auth-mobile-logo {
+    display: flex;
+  }
+}
+
+.auth-header {
+  margin-bottom: var(--space-8);
+}
+
+.auth-header h2 {
+  font-size: var(--text-2xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.auth-header p {
+  color: var(--color-text-secondary);
+}
+
+.auth-form .form-group {
+  margin-bottom: var(--space-5);
+}
+
+/* CAPTCHA Wrapper */
+.captcha-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-surface);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--color-border);
+}
+
+.captcha-question {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 2px;
+  color: var(--color-primary-mid);
+  user-select: none;
+}
+
+.captcha-refresh {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.captcha-refresh:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-primary);
+}
+
+.captcha-input {
+  width: 100px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.auth-footer {
+  margin-top: var(--space-8);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.auth-footer a {
+  color: var(--color-primary-mid);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color var(--transition-fast);
+}
+
+.auth-footer a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Security Notice */
+.security-notice {
+  margin-top: var(--space-6);
+  padding: var(--space-3);
+  background: var(--color-success-bg);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.security-notice-icon {
+  color: var(--color-success);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* Back button */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+  color: var(--color-primary-mid);
+}

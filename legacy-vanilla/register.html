@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open an Account — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/register.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  
+  <!-- Page Specific JS -->
+  <script src="js/register.js"></script>
+</head>
+<body class="public-layout">
+
+  <div class="register-layout">
+    
+    <div class="register-header">
+      <a href="index.html" class="register-logo">
+        <img src="assets/logo.svg" alt="KVN Bank Logo">
+        <span>KVN <span>Bank</span></span>
+      </a>
+      <h1 class="register-title">Open Your Digital Account</h1>
+      <p class="register-subtitle">Join us today. It only takes 3 minutes.</p>
+    </div>
+
+    <div class="register-container">
+      
+      <!-- Progress Bar -->
+      <div class="register-steps-wrapper" id="register-steps-wrapper">
+        <div class="progress-bar-container">
+          <div class="progress-line">
+            <div class="progress-line-fill" id="progress-line-fill"></div>
+          </div>
+          
+          <div class="progress-step active" id="progress-step-1">
+            <div class="progress-step-circle">1</div>
+            <div class="progress-step-label">Personal Info</div>
+          </div>
+          
+          <div class="progress-step" id="progress-step-2">
+            <div class="progress-step-circle">2</div>
+            <div class="progress-step-label">Contact & Address</div>
+          </div>
+          
+          <div class="progress-step" id="progress-step-3">
+            <div class="progress-step-circle">3</div>
+            <div class="progress-step-label">Account Setup</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Container -->
+      <div class="register-form-container">
+        
+        <form id="register-form" novalidate>
+          
+          <!-- Step 1: Personal Info -->
+          <div class="form-step active" id="step-1">
+            <h2 class="step-title">Personal Information</h2>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullname" class="form-label">Full Name (as per PAN) <span class="required">*</span></label>
+                <input type="text" id="fullname" class="form-control" placeholder="John Doe" required data-testid="reg-name">
+                <div class="invalid-feedback"></div>
+              </div>
+              
+              <div class="form-group">
+                <label for="dob" class="form-label">Date of Birth <span class="required">*</span></label>
+                <input type="date" id="dob" class="form-control" required data-testid="reg-dob">
+                <div class="invalid-feedback"></div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="gender" class="form-label">Gender <span class="required">*</span></label>
+                <select id="gender" class="form-control" required data-testid="reg-gender">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="pan" class="form-label">PAN Number <span class="required">*</span></label>
+                <input type="text" id="pan" class="form-control" placeholder="ABCDE1234F" style="text-transform: uppercase;" required data-testid="reg-pan">
+                <div class="invalid-feedback"></div>
+              </div>
+              
+              <div class="form-group">
+                <label for="aadhaar" class="form-label">Aadhaar Number <span class="required">*</span></label>
+                <input type="text" id="aadhaar" class="form-control" placeholder="XXXX XXXX XXXX" maxlength="12" required data-testid="reg-aadhaar">
+                <div class="invalid-feedback"></div>
+              </div>
+            </div>
+
+            <div class="form-actions" style="justify-content: flex-end;">
+              <button type="button" id="btn-next-1" class="btn btn-primary" data-testid="reg-next-1">Next Step →</button>
+            </div>
+          </div>
+
+
+          <!-- Step 2: Contact Info -->
+          <div class="form-step" id="step-2">
+            <h2 class="step-title">Contact & Address</h2>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email" class="form-label">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" class="form-control" placeholder="john@example.com" required data-testid="reg-email">
+                <div class="invalid-feedback"></div>
+              </div>
+              
+              <div class="form-group">
+                <label for="mobile" class="form-label">Mobile Number <span class="required">*</span></label>
+                <div style="display: flex;">
+                  <span style="background: var(--color-surface); border: 1.5px solid var(--color-border); border-right: none; padding: 0.625rem; border-radius: var(--radius-md) 0 0 var(--radius-md); color: var(--color-text-secondary);">+91</span>
+                  <input type="tel" id="mobile" class="form-control" style="border-radius: 0 var(--radius-md) var(--radius-md) 0;" placeholder="9876543210" maxlength="10" required data-testid="reg-mobile">
+                </div>
+                <div class="invalid-feedback"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="address" class="form-label">Residential Address <span class="required">*</span></label>
+              <textarea id="address" class="form-control" style="min-height: 80px;" placeholder="Flat/House No, Street, Landmark" required data-testid="reg-address"></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city" class="form-label">City <span class="required">*</span></label>
+                <input type="text" id="city" class="form-control" required data-testid="reg-city">
+              </div>
+              
+              <div class="form-group">
+                <label for="state" class="form-label">State <span class="required">*</span></label>
+                <select id="state" class="form-control" required data-testid="reg-state">
+                  <option value="">Select State</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="West Bengal">West Bengal</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="pincode" class="form-label">Pincode <span class="required">*</span></label>
+                <input type="text" id="pincode" class="form-control" placeholder="400001" maxlength="6" required data-testid="reg-pincode">
+                <div class="invalid-feedback"></div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" id="btn-prev-2" class="btn btn-outline" data-testid="reg-prev-2">← Back</button>
+              <button type="button" id="btn-next-2" class="btn btn-primary" data-testid="reg-next-2">Next Step →</button>
+            </div>
+          </div>
+
+
+          <!-- Step 3: Account Setup -->
+          <div class="form-step" id="step-3">
+            <h2 class="step-title">Account Setup</h2>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="acctype" class="form-label">Account Type <span class="required">*</span></label>
+                <select id="acctype" class="form-control" required data-testid="reg-acctype">
+                  <option value="Savings">Savings Account</option>
+                  <option value="Current">Current Account</option>
+                  <option value="Salary">Salary Account</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="username" class="form-label">NetBanking Username <span class="required">*</span></label>
+                <input type="text" id="username" class="form-control" placeholder="Choose a username" required data-testid="reg-username">
+                <div class="invalid-feedback"></div>
+                <div style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 4px;">Min. 5 characters, alphanumeric</div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="password" class="form-label">Password <span class="required">*</span></label>
+                <div class="password-wrapper">
+                  <input type="password" id="password" class="form-control" placeholder="Create password" required data-testid="reg-pwd">
+                  <button type="button" class="password-toggle">👁️</button>
+                </div>
+                <div class="password-strength">
+                  <div class="password-strength-bar" id="pwd-strength-bar"></div>
+                </div>
+                <div class="password-strength-text" id="pwd-strength-text"></div>
+                <div class="invalid-feedback" style="display: block;"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="confirm-password" class="form-label">Confirm Password <span class="required">*</span></label>
+                <div class="password-wrapper">
+                  <input type="password" id="confirm-password" class="form-control" placeholder="Confirm password" required data-testid="reg-confirmpwd">
+                  <button type="button" class="password-toggle">👁️</button>
+                </div>
+                <div class="invalid-feedback"></div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="sec-q" class="form-label">Security Question <span class="required">*</span></label>
+                <select id="sec-q" class="form-control" required data-testid="reg-secq">
+                  <option value="Mother's maiden name">What is your mother's maiden name?</option>
+                  <option value="First pet name">What was the name of your first pet?</option>
+                  <option value="Favorite city">What is your favorite city?</option>
+                  <option value="Childhood hero">Who was your childhood hero?</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="sec-a" class="form-label">Security Answer <span class="required">*</span></label>
+                <input type="text" id="sec-a" class="form-control" placeholder="Answer" required data-testid="reg-seca">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: var(--space-4); background: var(--color-surface); padding: var(--space-4); border-radius: var(--radius-md);">
+              <label class="form-check">
+                <input type="checkbox" id="agree-terms" required data-testid="reg-agree">
+                <span class="form-check-label">I agree to the <a href="#" style="color: var(--color-primary-mid); text-decoration: underline;">Terms & Conditions</a> and confirm that all details provided are true and correct.</span>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" id="btn-prev-3" class="btn btn-outline" data-testid="reg-prev-3">← Back</button>
+              <button type="submit" id="btn-submit" class="btn btn-primary" style="background: linear-gradient(135deg, var(--color-success), #147040); color: white;" data-testid="reg-submit">Open Account Now</button>
+            </div>
+          </div>
+
+        </form>
+
+        <!-- Success Screen (Hidden by default) -->
+        <div id="success-screen" class="register-success" style="display: none;" data-testid="reg-success">
+          <div class="success-icon">✓</div>
+          <h2 class="step-title" style="border: none; padding: 0; margin-bottom: var(--space-2);">Welcome to KVN Bank!</h2>
+          <p class="register-subtitle" style="font-size: var(--text-base);">Your account has been successfully created.</p>
+          
+          <div class="account-details-box">
+            <div class="detail-row">
+              <span class="detail-label">Account Holder</span>
+              <span class="detail-value" id="success-name"></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Account Number</span>
+              <span class="detail-value" id="success-acc"></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">NetBanking ID</span>
+              <span class="detail-value" id="success-custid"></span>
+            </div>
+          </div>
+
+          <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-6);">
+            We've added a ₹10,000 welcome bonus to your account.<br>Please login to start your digital banking journey.
+          </p>
+
+          <a href="login.html" class="btn btn-primary btn-lg" data-testid="reg-login-btn">Login to NetBanking</a>
+        </div>
+
+      </div>
+    </div>
+    
+    <div style="margin-top: var(--space-8); text-align: center; color: var(--color-text-secondary); font-size: var(--text-sm);">
+      Already have an account? <a href="login.html" style="color: var(--color-primary-mid); font-weight: 600;">Login here</a>
+    </div>
+  </div>
+
+</body>
+</html>

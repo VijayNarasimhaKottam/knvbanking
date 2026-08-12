@@ -1,0 +1,191 @@
+/* ============================================================
+   KVN BANK — REGISTER PAGE CSS
+   Multi-step form layout, validations, responsive grid
+   ============================================================ */
+
+.register-layout {
+  min-height: 100dvh;
+  background: linear-gradient(135deg, var(--color-surface), #E2E8F0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-8);
+}
+
+@media (max-width: 640px) {
+  .register-layout {
+    padding: var(--space-4);
+  }
+}
+
+.register-header {
+  margin-bottom: var(--space-8);
+  text-align: center;
+}
+
+.register-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.register-logo img {
+  height: 48px;
+}
+
+.register-logo span {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+}
+
+.register-logo span span {
+  color: var(--color-accent-dark);
+}
+
+.register-title {
+  font-size: var(--text-3xl);
+  font-family: var(--font-heading);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.register-subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--text-lg);
+}
+
+.register-container {
+  width: 100%;
+  max-width: 800px;
+  background: var(--color-card);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--color-border-light);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Steps Wrapper */
+.register-steps-wrapper {
+  padding: var(--space-8);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-surface-alt);
+}
+
+@media (max-width: 640px) {
+  .register-steps-wrapper {
+    padding: var(--space-6) var(--space-4);
+  }
+}
+
+/* Form Sections */
+.register-form-container {
+  padding: var(--space-8);
+}
+
+@media (max-width: 640px) {
+  .register-form-container {
+    padding: var(--space-6) var(--space-4);
+  }
+}
+
+.form-step {
+  display: none;
+  animation: fade-in-scale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.form-step.active {
+  display: block;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.step-title {
+  font-size: var(--text-xl);
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--color-accent-light);
+  display: inline-block;
+}
+
+/* Navigation Buttons */
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.form-actions .btn {
+  min-width: 140px;
+}
+
+/* Success State */
+.register-success {
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--color-success-light);
+  color: var(--color-success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin: 0 auto var(--space-6);
+  animation: fade-in-scale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.account-details-box {
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  max-width: 400px;
+  margin: var(--space-8) auto;
+  text-align: left;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  color: var(--color-text-secondary);
+}
+
+.detail-value {
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+}

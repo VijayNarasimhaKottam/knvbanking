@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/profile.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  
+  <!-- Page Specific JS -->
+  <script src="js/profile.js"></script>
+</head>
+<body class="auth-layout">
+
+  <div class="page-header">
+    <h1 class="page-title">My Profile</h1>
+    <p class="page-subtitle">Manage your personal information, contact details, and security settings.</p>
+  </div>
+
+  <div class="profile-layout">
+    
+    <!-- Sidebar -->
+    <div class="profile-sidebar">
+      <div class="profile-card">
+        <div class="profile-avatar-large" id="prof-avatar">U</div>
+        <div class="profile-name" id="prof-name">User Name</div>
+        <div class="profile-role">Customer</div>
+        <div class="badge badge-success">Active Account</div>
+      </div>
+      
+      <div class="profile-nav">
+        <div class="profile-nav-link active" data-target="sec-personal" data-testid="tab-personal">
+          <span>👤</span> Personal Details
+        </div>
+        <div class="profile-nav-link" data-target="sec-settings" data-testid="tab-settings">
+          <span>⚙️</span> Contact Settings
+        </div>
+        <div class="profile-nav-link" data-target="sec-security" data-testid="tab-security">
+          <span>🛡️</span> Security
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="profile-content">
+      
+      <!-- Section: Personal Details -->
+      <div class="profile-section active" id="sec-personal">
+        <div class="section-header">
+          <h2>Personal Details</h2>
+          <p>Your official details as registered with KVN Bank.</p>
+        </div>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Full Name</span>
+            <span class="info-value locked" id="disp-name">---</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Date of Birth</span>
+            <span class="info-value locked" id="disp-dob">---</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Gender</span>
+            <span class="info-value locked" id="disp-gender">---</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">PAN Number</span>
+            <span class="info-value locked" id="disp-pan">---</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Aadhaar Number</span>
+            <span class="info-value locked" id="disp-aadhaar">---</span>
+          </div>
+          <div class="info-item" style="grid-column: 1 / -1;">
+            <span class="info-label">Registered Address</span>
+            <span class="info-value locked" id="disp-address">---</span>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <div class="alert-icon">ℹ️</div>
+          <div class="alert-message">
+            To update locked personal details like your Name, PAN, or Address, please visit your nearest KVN Bank branch with original KYC documents.
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Contact Settings -->
+      <div class="profile-section" id="sec-settings">
+        <div class="section-header">
+          <h2>Contact Settings</h2>
+          <p>Keep your contact details up to date to receive important alerts.</p>
+        </div>
+        
+        <form id="form-settings" class="edit-form" novalidate>
+          <div class="form-group">
+            <label class="form-label">Email Address <span class="required">*</span></label>
+            <input type="email" id="edit-email" class="form-control" required data-testid="prof-email">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Mobile Number <span class="required">*</span></label>
+            <div style="display: flex;">
+              <span style="background: var(--color-surface); border: 1.5px solid var(--color-border); border-right: none; padding: 0.625rem; border-radius: var(--radius-md) 0 0 var(--radius-md); color: var(--color-text-secondary);">+91</span>
+              <input type="tel" id="edit-mobile" class="form-control" style="border-radius: 0 var(--radius-md) var(--radius-md) 0;" maxlength="10" required data-testid="prof-mobile">
+            </div>
+          </div>
+          
+          <button type="submit" id="btn-save-settings" class="btn btn-primary mt-4" data-testid="prof-save-contact">Save Changes</button>
+        </form>
+      </div>
+
+      <!-- Section: Security -->
+      <div class="profile-section" id="sec-security">
+        <div class="section-header">
+          <h2>Security Settings</h2>
+          <p>Manage your password and review recent security events.</p>
+        </div>
+        
+        <h3 style="font-size: var(--text-base); margin-bottom: var(--space-4);">Change Password</h3>
+        
+        <form id="form-security" class="edit-form" novalidate style="margin-bottom: var(--space-8);">
+          <div class="form-group">
+            <label class="form-label">Current Password <span class="required">*</span></label>
+            <div class="password-wrapper">
+              <input type="password" id="old-password" class="form-control" required data-testid="prof-oldpwd">
+              <button type="button" class="password-toggle">👁️</button>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">New Password <span class="required">*</span></label>
+            <div class="password-wrapper">
+              <input type="password" id="new-password" class="form-control" required data-testid="prof-newpwd">
+              <button type="button" class="password-toggle">👁️</button>
+            </div>
+            <div class="password-strength">
+              <div class="password-strength-bar" id="pwd-strength-bar"></div>
+            </div>
+            <div class="password-strength-text" id="pwd-strength-text"></div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Confirm New Password <span class="required">*</span></label>
+            <div class="password-wrapper">
+              <input type="password" id="confirm-new-password" class="form-control" required data-testid="prof-confirmpwd">
+              <button type="button" class="password-toggle">👁️</button>
+            </div>
+          </div>
+          
+          <button type="submit" id="btn-save-security" class="btn btn-primary mt-4" data-testid="prof-save-pwd">Update Password</button>
+        </form>
+
+        <h3 style="font-size: var(--text-base); margin-bottom: var(--space-4); border-top: 1px solid var(--color-border-light); padding-top: var(--space-6);">Recent Security Activity</h3>
+        
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-icon">💻</div>
+            <div class="activity-details">
+              <span class="activity-title">Successful Login (Windows / Chrome)</span>
+              <span class="activity-meta">Today, Just now • IP: 192.168.1.1</span>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon">📱</div>
+            <div class="activity-details">
+              <span class="activity-title">Successful Login (iOS / Safari)</span>
+              <span class="activity-meta">Yesterday, 14:30 • IP: 10.0.0.5</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

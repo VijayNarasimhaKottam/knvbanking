@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/login.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  
+  <!-- Page Specific JS -->
+  <script src="js/login-page.js"></script>
+</head>
+<body class="public-layout">
+
+  <div class="auth-layout">
+    <!-- Brand Side (Left on Desktop) -->
+    <div class="auth-brand-side">
+      <a href="index.html" class="auth-logo">
+        <img src="assets/logo.svg" alt="KVN Bank Logo">
+        <span>KVN <span>Bank</span></span>
+      </a>
+      
+      <div class="auth-showcase">
+        <h1>Secure banking at your fingertips.</h1>
+        <p>Access your accounts, transfer funds, and manage your wealth securely with KVN NetBanking.</p>
+      </div>
+      
+      <div class="auth-graphic"></div>
+    </div>
+    
+    <!-- Form Side (Right on Desktop) -->
+    <div class="auth-form-side">
+      <div class="auth-mobile-logo">
+        <img src="assets/logo.svg" alt="KVN Bank Logo">
+        <span>KVN Bank</span>
+      </div>
+      
+      <a href="index.html" class="back-link">← Back to Home</a>
+      
+      <div class="auth-header">
+        <h2>Welcome Back</h2>
+        <p>Please enter your credentials to login.</p>
+      </div>
+      
+      <form class="auth-form" id="login-form" novalidate>
+        <div class="form-group">
+          <label for="username" class="form-label">Username / Customer ID <span class="required">*</span></label>
+          <input type="text" id="username" class="form-control" placeholder="Enter username" required autocomplete="username" data-testid="login-username">
+          <div class="invalid-feedback">Username is required</div>
+        </div>
+        
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <label for="password" class="form-label">Password <span class="required">*</span></label>
+            <a href="forgot-password.html" tabindex="-1" style="font-size: var(--text-xs); color: var(--color-primary-mid); font-weight: 600;">Forgot Password?</a>
+          </div>
+          <div class="password-wrapper">
+            <input type="password" id="password" class="form-control" placeholder="Enter password" required autocomplete="current-password" data-testid="login-password">
+            <button type="button" id="toggle-password" class="password-toggle" aria-label="Show password">👁️</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Security Check <span class="required">*</span></label>
+          <div class="captcha-wrapper">
+            <div id="captcha-q" class="captcha-question">...</div>
+            <input type="number" id="captcha-answer" class="form-control captcha-input" placeholder="?" required data-testid="login-captcha">
+            <button type="button" id="refresh-captcha" class="captcha-refresh" aria-label="Refresh CAPTCHA">↻</button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-check">
+            <input type="checkbox" id="remember-me" data-testid="login-remember">
+            <span class="form-check-label">Remember my Username</span>
+          </label>
+        </div>
+        
+        <button type="submit" id="login-submit" class="btn btn-primary w-full mt-4" style="padding: 0.875rem;" data-testid="login-submit-btn">
+          Login Securely
+        </button>
+      </form>
+      
+      <div class="security-notice">
+        <div class="security-notice-icon">🔒</div>
+        <div>
+          <strong>Security Notice:</strong> KVN Bank will never ask for your Password, PIN, or OTP over phone or email. Ensure the URL starts with https://
+        </div>
+      </div>
+      
+      <div class="auth-footer">
+        Don't have an account? <a href="register.html">Register for NetBanking</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

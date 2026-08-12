@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPI Management — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/upi.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  
+  <!-- Page Specific JS -->
+  <script src="js/upi.js"></script>
+</head>
+<body class="auth-layout">
+
+  <div class="page-header">
+    <h1 class="page-title">UPI Management</h1>
+    <p class="page-subtitle">Send, receive, and manage your unified payment interface seamlessly.</p>
+  </div>
+
+  <div class="upi-layout">
+    
+    <!-- Main Content Area -->
+    <div class="upi-main">
+      
+      <!-- UPI ID Card -->
+      <div class="upi-id-card">
+        <div class="upi-id-info">
+          <div class="upi-id-label">Your Primary UPI ID</div>
+          <div class="upi-id-val">
+            <span id="upi-id-display">user@kvn</span>
+            <button class="btn-copy" id="btn-copy-upi" title="Copy UPI ID" data-testid="copy-upi">📋</button>
+          </div>
+          <div class="upi-link-status">Linked to Savings Account</div>
+        </div>
+      </div>
+
+      <!-- Action Tabs -->
+      <div class="upi-tabs">
+        <div class="upi-tab active" data-target="send" data-testid="tab-send">Send Money</div>
+        <div class="upi-tab" data-target="receive" data-testid="tab-receive">Request Money</div>
+        <div class="upi-tab" data-target="manage" data-testid="tab-manage">My QR Code</div>
+      </div>
+
+      <!-- View: Send Money -->
+      <div class="upi-view active" id="view-send">
+        <div class="view-header">
+          <h2 class="view-title">Send via UPI ID</h2>
+          <p class="view-desc">Transfer money instantly to any UPI app (GPay, PhonePe, Paytm).</p>
+        </div>
+        
+        <form id="form-upi-send" novalidate style="max-width: 400px;">
+          <div class="form-group">
+            <label class="form-label">Payee UPI ID <span class="required">*</span></label>
+            <input type="text" id="payee-upi" class="form-control" placeholder="e.g. rohan@okicici" required data-testid="upi-send-id">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Amount (₹) <span class="required">*</span></label>
+            <input type="number" id="send-amount" class="form-control" placeholder="0.00" style="font-size: var(--text-2xl); font-weight: 700;" required data-testid="upi-send-amt">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Remarks (Optional)</label>
+            <input type="text" id="send-remarks" class="form-control" placeholder="What's this for?" maxlength="30" data-testid="upi-send-rem">
+          </div>
+          
+          <button type="submit" id="btn-upi-send" class="btn btn-primary w-full mt-4" data-testid="upi-btn-send">Pay Now</button>
+        </form>
+      </div>
+
+      <!-- View: Request Money -->
+      <div class="upi-view" id="view-receive">
+        <div class="view-header">
+          <h2 class="view-title">Request Money</h2>
+          <p class="view-desc">Send a payment request to anyone. Valid for 24 hours.</p>
+        </div>
+        
+        <form id="form-upi-req" novalidate style="max-width: 400px;" onsubmit="event.preventDefault();">
+          <div class="form-group">
+            <label class="form-label">Payer UPI ID <span class="required">*</span></label>
+            <input type="text" id="payer-upi" class="form-control" placeholder="Enter UPI ID to request from" required data-testid="upi-req-id">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Amount (₹) <span class="required">*</span></label>
+            <input type="number" id="req-amount" class="form-control" placeholder="0.00" style="font-size: var(--text-2xl); font-weight: 700;" required data-testid="upi-req-amt">
+          </div>
+          
+          <button type="button" id="btn-upi-request" class="btn btn-primary w-full mt-4" data-testid="upi-btn-req">Send Request</button>
+        </form>
+      </div>
+
+      <!-- View: My QR Code -->
+      <div class="upi-view" id="view-manage">
+        <div class="view-header" style="text-align: center;">
+          <h2 class="view-title">My QR Code</h2>
+          <p class="view-desc">Scan to pay directly into your account.</p>
+        </div>
+        
+        <div class="qr-container">
+          <div class="qr-placeholder">
+            <div class="qr-corners"></div>
+            <!-- Logo in middle of QR -->
+            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2;">
+              <div style="background: white; padding: 4px; border-radius: 4px;">
+                <img src="assets/logo.svg" alt="KVN" height="24">
+              </div>
+            </div>
+          </div>
+          <div style="font-weight: 600; margin-bottom: 4px;">KVN Bank</div>
+          <div style="font-family: var(--font-mono); color: var(--color-text-secondary); font-size: 14px;">Scan using any UPI App</div>
+        </div>
+        
+        <div style="display: flex; gap: var(--space-4); margin-top: var(--space-6); justify-content: center;">
+          <button class="btn btn-outline">📥 Download QR</button>
+          <button class="btn btn-outline">📤 Share QR</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="upi-sidebar">
+      
+      <!-- UPI History Widget -->
+      <div class="upi-history">
+        <div class="history-header">
+          <span>Recent UPI Activity</span>
+          <a href="statement.html" style="font-size: var(--text-xs); color: var(--color-primary); font-weight: 500; text-decoration: none;">View All</a>
+        </div>
+        
+        <div class="upi-txn-list" id="upi-history-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Info Alert -->
+      <div class="alert alert-info mt-6" style="margin-top: var(--space-6);">
+        <div class="alert-icon">🛡️</div>
+        <div class="alert-message">
+          <strong>Stay Safe!</strong> UPI PIN is required ONLY to send money. Do not enter your PIN to receive payments.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

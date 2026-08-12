@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATM & Branch Locator — KVN Bank</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/locator.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+</head>
+<body class="public-layout">
+
+  <!-- Fixed Public Navbar -->
+  <nav class="public-navbar" id="public-navbar">
+    <a href="index.html" class="topnav-brand">
+      <img src="assets/logo.svg" alt="KVN Bank Logo">
+      <span class="topnav-brand-name">KVN <span>Bank</span></span>
+    </a>
+    
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="locator.html" class="active">ATM & Branches</a>
+      <a href="login.html" class="btn btn-primary btn-sm" style="margin-left: 1rem; padding: 0.5rem 1.25rem;">Login</a>
+    </div>
+  </nav>
+
+  <div class="locator-layout">
+    
+    <!-- Sidebar -->
+    <div class="locator-sidebar">
+      <div class="locator-search-area">
+        <h2>Find Us</h2>
+        
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="loc-search" class="form-control" placeholder="Search by city, area, or pincode">
+        </div>
+
+        <div class="filter-pills">
+          <button class="filter-pill active" data-filter="all">All</button>
+          <button class="filter-pill" data-filter="branch">Branches</button>
+          <button class="filter-pill" data-filter="atm">ATMs</button>
+        </div>
+      </div>
+
+      <div class="locator-results" id="loc-results">
+        <!-- JS will populate results here -->
+      </div>
+    </div>
+
+    <!-- Map Area -->
+    <div class="locator-map-area">
+      <div class="mock-map" id="mock-map">
+        <div class="mock-map-overlay" id="map-initial-state">
+          <div style="font-size: 32px; margin-bottom: 8px;">📍</div>
+          <h3 style="margin-bottom: 4px;">Interactive Map Demo</h3>
+          <p style="font-size: 12px; color: var(--color-text-secondary);">Select a location from the list to view it on the map.</p>
+        </div>
+        <!-- JS will populate pins here -->
+      </div>
+    </div>
+    
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const resultsContainer = document.getElementById('loc-results');
+      const searchInput = document.getElementById('loc-search');
+      const filterBtns = document.querySelectorAll('.filter-pill');
+      const mockMap = document.getElementById('mock-map');
+      const mapOverlay = document.getElementById('map-initial-state');
+      
+      let currentFilter = 'all';
+      let searchQuery = '';
+      
+      // We assume LOCATIONS array is available globally from data.js
+      let activeLocationId = null;
+
+      function renderLocations() {
+        resultsContainer.innerHTML = '';
+        
+        const filtered = LOCATIONS.filter(loc => {
+          const matchesFilter = currentFilter === 'all' || loc.type === currentFilter;
+          const searchStr = `${loc.name} ${loc.address} ${loc.city} ${loc.state} ${loc.pincode}`.toLowerCase();
+          const matchesSearch = searchStr.includes(searchQuery.toLowerCase());
+          return matchesFilter && matchesSearch;
+        });
+
+        if (filtered.length === 0) {
+          resultsContainer.innerHTML = `
+            <div style="text-align: center; padding: 2rem; color: var(--color-text-secondary);">
+              <div style="font-size: 2rem; margin-bottom: 1rem;">🔍</div>
+              <p>No locations found matching your criteria.</p>
+            </div>
+          `;
+        }
+
+        filtered.forEach(loc => {
+          const card = document.createElement('div');
+          card.className = `location-card ${activeLocationId === loc.id ? 'active' : ''}`;
+          card.dataset.id = loc.id;
+          
+          card.innerHTML = `
+            <div class="location-header">
+              <div class="location-title">${loc.name}</div>
+              <div class="location-badge ${loc.type === 'branch' ? 'badge-branch' : 'badge-atm'}">
+                ${loc.type}
+              </div>
+            </div>
+            
+            <div class="location-detail">
+              <span class="location-icon">📍</span>
+              <span>${loc.address}, ${loc.city}, ${loc.state} - ${loc.pincode}</span>
+            </div>
+            
+            ${loc.type === 'branch' ? `
+            <div class="location-detail">
+              <span class="location-icon">🕒</span>
+              <span>${loc.timing}</span>
+            </div>
+            <div class="location-detail">
+              <span class="location-icon">📞</span>
+              <span>${loc.phone}</span>
+            </div>
+            ` : `
+            <div class="location-detail">
+              <span class="location-icon">🕒</span>
+              <span>24/7 Available</span>
+            </div>
+            `}
+          `;
+          
+          card.addEventListener('click', () => {
+            activeLocationId = loc.id;
+            renderLocations();
+            renderMap(loc);
+          });
+          
+          resultsContainer.appendChild(card);
+        });
+      }
+
+      function renderMap(activeLoc = null) {
+        // Clear previous pins
+        const existingPins = document.querySelectorAll('.mock-map-pin');
+        existingPins.forEach(p => p.remove());
+
+        if (activeLoc) {
+          mapOverlay.style.display = 'none';
+          
+          // Generate a pseudo-random position based on ID for demo purposes
+          const hash = activeLoc.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+          const top = 20 + (hash % 60); // 20% to 80%
+          const left = 20 + ((hash * 7) % 60); // 20% to 80%
+
+          const pin = document.createElement('div');
+          pin.className = 'mock-map-pin active';
+          pin.style.top = `${top}%`;
+          pin.style.left = `${left}%`;
+          pin.innerHTML = activeLoc.type === 'branch' ? '🏢' : '🏧';
+          
+          const tooltip = document.createElement('div');
+          tooltip.style.position = 'absolute';
+          tooltip.style.bottom = '100%';
+          tooltip.style.left = '50%';
+          tooltip.style.transform = 'translateX(-50%)';
+          tooltip.style.background = 'white';
+          tooltip.style.padding = '8px 12px';
+          tooltip.style.borderRadius = '8px';
+          tooltip.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.1)';
+          tooltip.style.whiteSpace = 'nowrap';
+          tooltip.style.fontSize = '12px';
+          tooltip.style.fontWeight = '600';
+          tooltip.style.marginBottom = '8px';
+          tooltip.innerHTML = activeLoc.name;
+          
+          // Add small arrow
+          const arrow = document.createElement('div');
+          arrow.style.position = 'absolute';
+          arrow.style.top = '100%';
+          arrow.style.left = '50%';
+          arrow.style.transform = 'translateX(-50%)';
+          arrow.style.borderWidth = '6px';
+          arrow.style.borderStyle = 'solid';
+          arrow.style.borderColor = 'white transparent transparent transparent';
+          tooltip.appendChild(arrow);
+          
+          pin.appendChild(tooltip);
+          mockMap.appendChild(pin);
+        } else {
+          mapOverlay.style.display = 'block';
+        }
+      }
+
+      // Event Listeners
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        renderLocations();
+      });
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter;
+          renderLocations();
+        });
+      });
+
+      // Initial Render
+      renderLocations();
+    });
+  </script>
+</body>
+</html>

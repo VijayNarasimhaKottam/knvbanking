@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/login-page.js"></script>
+</head>
+<body>
+  <form id="login-form">
+    <input type="text" id="username" value="admin">
+    <input type="password" id="password" value="Admin@123">
+    <div id="captcha-q"></div>
+    <input type="number" id="captcha-answer" value="">
+    <button type="button" id="refresh-captcha"></button>
+    <button type="button" id="toggle-password"></button>
+    <input type="checkbox" id="remember-me">
+    <button type="submit" id="login-submit">Login</button>
+  </form>
+  <script>
+    setTimeout(() => {
+      // simulate correct captcha
+      const answer = document.getElementById('captcha-answer');
+      const question = document.getElementById('captcha-q').innerText;
+      // Solve it loosely
+      if (question) {
+        const parts = question.replace('What is ', '').replace('?', '').split(' ');
+        if(parts[1] === '+') answer.value = parseInt(parts[0]) + parseInt(parts[2]);
+        else if(parts[1] === '-') answer.value = parseInt(parts[0]) - parseInt(parts[2]);
+        else if(parts[1] === '×') answer.value = parseInt(parts[0]) * parseInt(parts[2]);
+      }
+      document.getElementById('login-submit').click();
+      console.log('Clicked login. Current localstorage:', localStorage.getItem('KVN_session'));
+    }, 1000);
+  </script>
+</body>
+</html>

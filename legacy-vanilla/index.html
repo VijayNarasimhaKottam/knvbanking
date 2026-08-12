@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KVN Bank — The Future of Digital Banking</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/landing.css">
+  
+  <!-- JS Foundation -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+</head>
+<body class="public-layout">
+  
+  <!-- Fixed Public Navbar -->
+  <nav class="public-navbar" id="public-navbar">
+    <a href="index.html" class="topnav-brand">
+      <img src="assets/logo.svg" alt="KVN Bank Logo">
+      <span class="topnav-brand-name">KVN <span>Bank</span></span>
+    </a>
+    
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="locator.html">ATM & Branches</a>
+      <a href="login.html" class="btn btn-primary btn-sm" style="margin-left: 1rem; padding: 0.5rem 1.25rem;">Login</a>
+      <a href="register.html" class="btn btn-outline btn-sm">Open Account</a>
+    </div>
+
+    <button class="hamburger" id="nav-toggle" aria-label="Toggle Navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-bg-shapes">
+      <div class="hero-shape hero-shape-1"></div>
+      <div class="hero-shape hero-shape-2"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span></span> Online banking is fully operational
+        </div>
+        <h1 class="hero-title">Banking designed for your <span>digital life</span></h1>
+        <p class="hero-subtitle">
+          Experience seamless, secure, and intuitive banking from anywhere. 
+          Manage your money, invest for the future, and achieve your financial goals with KVN Bank.
+        </p>
+        <div class="hero-actions">
+          <a href="register.html" class="btn btn-primary btn-lg">Open an Account</a>
+          <a href="login.html" class="btn btn-outline btn-lg" style="color: white; border-color: rgba(255,255,255,0.3);">NetBanking Login</a>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <!-- Floating Glass Cards -->
+        <div class="hero-card hero-card-1">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.8rem; opacity: 0.8;">Total Balance</span>
+            <img src="assets/logo.svg" alt="KVN" width="24" height="24">
+          </div>
+          <div class="mock-balance">₹2,50,000</div>
+          <div style="font-size: 0.75rem; color: var(--color-success);">+2.4% from last month</div>
+          <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+            <div style="height: 4px; flex: 2; background: var(--color-accent); border-radius: 2px;"></div>
+            <div style="height: 4px; flex: 1; background: var(--color-success); border-radius: 2px;"></div>
+          </div>
+        </div>
+
+        <div class="hero-card hero-card-2">
+          <div style="font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">Recent Activity</div>
+          <div class="mock-txn">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--color-success-light); display: flex; align-items: center; justify-content: center; font-size: 10px;">↓</div>
+              <span style="font-size: 0.75rem;">Salary</span>
+            </div>
+            <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--color-success);">+₹85,000</span>
+          </div>
+          <div class="mock-txn">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--color-danger-light); display: flex; align-items: center; justify-content: center; font-size: 10px;">↑</div>
+              <span style="font-size: 0.75rem;">Netflix</span>
+            </div>
+            <span style="font-size: 0.75rem; font-family: var(--font-mono);">−₹649</span>
+          </div>
+        </div>
+
+        <div class="hero-card hero-card-3" style="display: flex; align-items: center; gap: 1rem; padding: 1rem;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark)); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--color-primary);">FD</div>
+          <div>
+            <div style="font-size: 0.85rem; font-weight: 600;">Fixed Deposit</div>
+            <div style="font-size: 0.75rem; opacity: 0.8;">Earn up to 7.25% p.a.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <h3>2M+</h3>
+        <p>Happy Customers</p>
+      </div>
+      <div class="stat-item">
+        <h3>500+</h3>
+        <p>Branches</p>
+      </div>
+      <div class="stat-item">
+        <h3>99.9%</h3>
+        <p>Uptime</p>
+      </div>
+      <div class="stat-item">
+        <h3>24/7</h3>
+        <p>Support</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="section-header">
+      <h2>Why Choose KVN Bank?</h2>
+      <p>We provide a comprehensive suite of banking solutions designed to empower your financial journey.</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card" data-hover-glow>
+        <div class="feature-icon">⚡</div>
+        <h3>Instant Transfers</h3>
+        <p>Send money instantly 24/7 via IMPS, NEFT, RTGS, and UPI. Zero downtime, zero hassle.</p>
+      </div>
+      <div class="feature-card" data-hover-glow>
+        <div class="feature-icon">🛡️</div>
+        <h3>Bank-Grade Security</h3>
+        <p>Your money and data are protected with 256-bit encryption and multi-factor authentication.</p>
+      </div>
+      <div class="feature-card" data-hover-glow>
+        <div class="feature-icon">📈</div>
+        <h3>Smart Investments</h3>
+        <p>Grow your wealth with our high-yield Fixed Deposits and intelligent investment options.</p>
+      </div>
+      <div class="feature-card" data-hover-glow>
+        <div class="feature-icon">🧾</div>
+        <h3>One-Click Payments</h3>
+        <p>Pay your utility bills, mobile recharges, and credit cards instantly from a single dashboard.</p>
+      </div>
+      <div class="feature-card" data-hover-glow>
+        <div class="feature-icon">📱</div>
+        <h3>Digital First</h3>
+        <p>Open an account online in 5 minutes. No branch visits, no paperwork required.</p>
+      </div>
+      <div class="feature-card" data-hover-glow>
+        <div class="feature-icon">🎯</div>
+        <h3>24/7 Support</h3>
+        <p>Our dedicated customer support team is always ready to assist you with any queries.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Showcase -->
+  <section class="showcase">
+    <div class="showcase-inner">
+      <div class="showcase-visual">
+        <div class="mock-dashboard">
+          <div class="mock-header">
+            <div class="mock-dot"></div>
+            <div class="mock-dot"></div>
+            <div class="mock-dot"></div>
+          </div>
+          <div class="mock-body">
+            <div style="display: flex; gap: 1rem;">
+              <div style="flex: 1; height: 60px; background: var(--color-surface); border-radius: var(--radius-md);"></div>
+              <div style="flex: 1; height: 60px; background: var(--color-surface); border-radius: var(--radius-md);"></div>
+            </div>
+            <div class="mock-chart"></div>
+            <div style="height: 120px; background: var(--color-surface); border-radius: var(--radius-md);"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="showcase-content">
+        <h2 style="font-size: var(--text-3xl); margin-bottom: var(--space-4);">A beautiful dashboard for all your needs</h2>
+        <p style="font-size: var(--text-lg); color: var(--color-text-secondary); line-height: var(--leading-relaxed);">
+          Experience a clutter-free interface that puts you in control. View your balances, track expenses, and manage your investments all in one place.
+        </p>
+        <ul>
+          <li>Real-time transaction tracking</li>
+          <li>Detailed account statements</li>
+          <li>Visual spending analysis</li>
+          <li>Instant beneficiary management</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="cta-content">
+      <h2>Ready to upgrade your banking?</h2>
+      <p>Join millions of satisfied customers and experience the KVN Bank difference today.</p>
+      <a href="register.html" class="btn btn-primary btn-lg">Open Your Account Now</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-section">
+        <div class="topnav-brand" style="margin-bottom: var(--space-4);">
+          <img src="assets/logo.svg" alt="KVN Bank Logo" style="filter: brightness(0) invert(1);">
+          <span class="topnav-brand-name" style="color: white;">KVN <span style="color: var(--color-accent);">Bank</span></span>
+        </div>
+        <p style="font-size: var(--text-sm); color: rgba(255,255,255,0.6); line-height: 1.6;">
+          A premium digital banking experience designed for the modern world.
+        </p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Services</h4>
+        <a href="login.html">NetBanking</a>
+        <a href="register.html">Open Savings Account</a>
+        <a href="login.html">Fixed Deposits</a>
+        <a href="login.html">Bill Payments</a>
+      </div>
+      
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <a href="#">Company Profile</a>
+        <a href="#">Careers</a>
+        <a href="#">Investors</a>
+        <a href="#">Newsroom</a>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Support</h4>
+        <a href="contact.html">Contact Us</a>
+        <a href="locator.html">Branch Locator</a>
+        <a href="#">Security Center</a>
+        <a href="#">FAQs</a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="demo-disclaimer" style="margin-bottom: var(--space-4); border-radius: var(--radius-md);">
+        DEMO APPLICATION: No real transactions or data storage
+      </div>
+      <p>&copy; 2026 KVN Bank. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('public-navbar');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // Mobile nav toggle
+    const toggle = document.getElementById('nav-toggle');
+    const links = document.getElementById('nav-links');
+    if (toggle && links) {
+      toggle.addEventListener('click', () => {
+        toggle.classList.toggle('open');
+        links.classList.toggle('open');
+      });
+    }
+
+    // Dynamic hover glow for feature cards
+    document.querySelectorAll('[data-hover-glow]').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  </script>
+</body>
+</html>
