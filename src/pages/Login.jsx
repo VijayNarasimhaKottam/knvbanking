@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Shield, Eye, EyeOff, RefreshCw } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { generateCaptcha } from '../utils/utils';
-import { getUserByUsername, validatePassword, isAccountLocked, handleFailedLogin, resetLoginAttempts } from '../utils/auth';
+import { login as authenticateUser } from '../utils/auth';
 
 export default function Login() {
   const { login } = useAuth();
@@ -20,7 +20,7 @@ export default function Login() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const remembered = localStorage.getItem('KVN_REMEMBERED_USER');
+    const remembered = localStorage.getItem('KVN_REMEMBER_ME');
     if (remembered) {
       setUsername(remembered);
       setRememberMe(true);
@@ -56,34 +56,16 @@ export default function Login() {
     setTimeout(() => {
       setLoading(false);
       
-      const user = getUserByUsername(username);
-      if (!user) {
-        setError('Invalid username or password.');
-        refreshCaptcha();
-        return;
-      }
-
-      if (isAccountLocked(user)) {
-        const lockoutEnd = new Date(user.lockoutUntil).getTime();
-        const minutesLeft = Math.ceil((lockoutEnd - Date.now()) / 60000);
-        setError(`Account locked. Try again in ${minutesLeft} minutes.`);
-        return;
-      }
-
-      if (!validatePassword(password, user.passwordHash)) {
-        const result = handleFailedLogin(user);
-        if (result.locked) {
-          setError(`Account locked due to multiple failed attempts. Try again in 15 minutes.`);
-        } else {
-          setError(`Invalid username or password. Attempts remaining: ${3 - result.attempts}`);
-        }
+      const authResult = authenticateUser(username, password);
+      
+      if (!authResult.success) {
+        setError(authResult.error);
         refreshCaptcha();
         return;
       }
 
       // Success
-      resetLoginAttempts(user);
-      login(user, rememberMe);
+      login(authResult.session, rememberMe);
       navigate('/dashboard');
       
     }, 1500);

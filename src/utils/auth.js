@@ -1,3 +1,5 @@
+import { getUserByUsername, updateUser, STORAGE_KEYS } from './data';
+
 /* ============================================================
    KVN BANK — AUTH.JS
    Session Management, Login/Logout, Lockout
@@ -11,7 +13,7 @@ const MAX_LOGIN_ATTEMPTS = 3;
  * Validate credentials and create a session
  * @returns {{ success: boolean, error?: string, attemptsLeft?: number }}
  */
-function login(username, password) {
+export function login(username, password) {
   const user = getUserByUsername(username);
   
   if (!user) {
@@ -98,7 +100,7 @@ function login(username, password) {
 /**
  * Clear session and redirect to login
  */
-function logout(reason) {
+export function logout(reason) {
   localStorage.removeItem(STORAGE_KEYS.SESSION);
   const params = reason ? `?reason=${encodeURIComponent(reason)}` : '';
   window.location.href = `login.html${params}`;
@@ -107,7 +109,7 @@ function logout(reason) {
 /**
  * Get current session object
  */
-function getSession() {
+export function getSession() {
   try {
     const data = localStorage.getItem(STORAGE_KEYS.SESSION);
     if (!data) return null;
@@ -120,7 +122,7 @@ function getSession() {
 /**
  * Check if user is logged in with a valid (non-expired) session
  */
-function isLoggedIn() {
+export function isLoggedIn() {
   const session = getSession();
   if (!session) return false;
   
@@ -136,7 +138,7 @@ function isLoggedIn() {
 /**
  * Check if current user is admin
  */
-function isAdmin() {
+export function isAdmin() {
   const session = getSession();
   return session && session.role === 'admin';
 }
@@ -144,7 +146,7 @@ function isAdmin() {
 /**
  * Extend session expiry by SESSION_DURATION (activity refresh)
  */
-function refreshSession() {
+export function refreshSession() {
   const session = getSession();
   if (!session) return;
   
@@ -155,7 +157,7 @@ function refreshSession() {
 /**
  * Check session expiry and show timeout modal if needed
  */
-function checkSessionExpiry() {
+export function checkSessionExpiry() {
   const session = getSession();
   if (!session) return;
 
@@ -176,7 +178,7 @@ function checkSessionExpiry() {
 /**
  * Session timeout modal
  */
-function showSessionTimeoutModal(secondsLeft) {
+export function showSessionTimeoutModal(secondsLeft) {
   const existing = document.getElementById('session-timeout-modal');
   if (existing && existing.classList.contains('active')) return;
 
@@ -224,7 +226,7 @@ function showSessionTimeoutModal(secondsLeft) {
   overlay._timer = timer;
 }
 
-function continueSession() {
+export function continueSession() {
   refreshSession();
   const modal = document.getElementById('session-timeout-modal');
   if (modal) {
@@ -236,7 +238,7 @@ function continueSession() {
 /**
  * Helper to format seconds into MM:SS
  */
-function formatSeconds(totalSeconds) {
+export function formatSeconds(totalSeconds) {
   const min = Math.floor(totalSeconds / 60);
   const sec = totalSeconds % 60;
   if (min > 0) {
@@ -248,7 +250,7 @@ function formatSeconds(totalSeconds) {
 /**
  * Start session monitoring (call on every protected page)
  */
-function startSessionMonitor() {
+export function startSessionMonitor() {
   // Check every 10 seconds
   setInterval(checkSessionExpiry, 10000);
 
@@ -270,14 +272,14 @@ function startSessionMonitor() {
 /**
  * Get remember me username
  */
-function getRememberedUsername() {
+export function getRememberedUsername() {
   return localStorage.getItem(STORAGE_KEYS.REMEMBER_ME) || '';
 }
 
 /**
  * Set remember me username
  */
-function setRememberedUsername(username) {
+export function setRememberedUsername(username) {
   if (username) {
     localStorage.setItem(STORAGE_KEYS.REMEMBER_ME, username);
   } else {

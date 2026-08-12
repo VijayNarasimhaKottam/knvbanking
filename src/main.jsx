@@ -9,7 +9,7 @@ import './styles/pages/login.css';
 import './styles/pages/dashboard.css';
 import './styles/pages/transfer.css';
 import './styles/pages/profile.css';
-import './styles/pages/transactions.css';
+import './styles/pages/statement.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

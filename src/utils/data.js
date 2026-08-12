@@ -3,7 +3,7 @@
    Seed Data + LocalStorage CRUD Operations
    ============================================================ */
 
-const STORAGE_KEYS = {
+export const STORAGE_KEYS = {
   INITIALIZED: 'KVN_initialized',
   USERS: 'KVN_users',
   TRANSACTIONS: 'KVN_transactions',
@@ -17,7 +17,7 @@ const STORAGE_KEYS = {
 };
 
 /* ========== SEED DATA ========== */
-function getSeedUsers() {
+export function getSeedUsers() {
   return [
     {
       id: 'USR001',
@@ -151,7 +151,7 @@ function getSeedUsers() {
   ];
 }
 
-function getSeedTransactions() {
+export function getSeedTransactions() {
   const now = new Date();
   const transactions = [];
   const descriptions = {
@@ -283,7 +283,7 @@ function getSeedTransactions() {
   return transactions;
 }
 
-function getSeedBeneficiaries() {
+export function getSeedBeneficiaries() {
   return [
     {
       id: 'BEN001', userId: 'USR001', nickName: 'Rajesh - HDFC',
@@ -318,7 +318,7 @@ function getSeedBeneficiaries() {
   ];
 }
 
-function getSeedFixedDeposits() {
+export function getSeedFixedDeposits() {
   return [
     {
       id: 'FD001', userId: 'USR001', fdNumber: 'NRB-FD-20260801-001',
@@ -341,7 +341,7 @@ function getSeedFixedDeposits() {
   ];
 }
 
-function getSeedNotifications() {
+export function getSeedNotifications() {
   const now = new Date().toISOString();
   return [
     { id: 'NOTIF001', userId: 'USR001', message: 'Welcome to KVN Bank NetBanking! Your account is now active.', type: 'info', read: false, timestamp: now },
@@ -352,7 +352,7 @@ function getSeedNotifications() {
   ];
 }
 
-function getSeedATMBranches() {
+export function getSeedATMBranches() {
   return [
     { id: 'ATM001', name: 'KVN Bank ATM - Bandra', type: 'ATM', address: '123 Turner Road, Bandra West', city: 'Mumbai', state: 'Maharashtra', pincode: '400050', phone: '022-26001234', hours: '24/7', atmAvailable: true },
     { id: 'ATM002', name: 'KVN Bank Branch - Fort', type: 'Branch', address: '45 Dalal Street, Fort', city: 'Mumbai', state: 'Maharashtra', pincode: '400001', phone: '022-22001234', hours: '10:00 AM - 4:00 PM', atmAvailable: true },
@@ -377,7 +377,7 @@ function getSeedATMBranches() {
   ];
 }
 
-function getSeedBillers() {
+export function getSeedBillers() {
   return {
     electricity: [
       { id: 'BILL-E-001', name: 'BESCOM Karnataka', region: 'Karnataka' },
@@ -414,7 +414,7 @@ function getSeedBillers() {
 }
 
 /* ========== INITIALIZATION ========== */
-function initializeApp() {
+export function initializeApp() {
   if (localStorage.getItem(STORAGE_KEYS.INITIALIZED) === 'true') {
     return;
   }
@@ -430,7 +430,7 @@ function initializeApp() {
 }
 
 /* ========== GENERIC CRUD HELPERS ========== */
-function _getData(key) {
+export function _getData(key) {
   try {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : [];
@@ -439,24 +439,24 @@ function _getData(key) {
   }
 }
 
-function _setData(key, data) {
+export function _setData(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
 /* ========== USER OPERATIONS ========== */
-function getUsers() {
+export function getUsers() {
   return _getData(STORAGE_KEYS.USERS);
 }
 
-function getUserById(id) {
+export function getUserById(id) {
   return getUsers().find(u => u.id === id) || null;
 }
 
-function getUserByUsername(username) {
+export function getUserByUsername(username) {
   return getUsers().find(u => u.username.toLowerCase() === username.toLowerCase()) || null;
 }
 
-function updateUser(id, updates) {
+export function updateUser(id, updates) {
   const users = getUsers();
   const index = users.findIndex(u => u.id === id);
   if (index === -1) return false;
@@ -465,13 +465,13 @@ function updateUser(id, updates) {
   return true;
 }
 
-function addUser(user) {
+export function addUser(user) {
   const users = getUsers();
   users.push(user);
   _setData(STORAGE_KEYS.USERS, users);
 }
 
-function getNextUserId() {
+export function getNextUserId() {
   const users = getUsers();
   const customerUsers = users.filter(u => u.id.startsWith('USR') && u.id !== 'USR_ADMIN');
   const maxId = customerUsers.reduce((max, u) => {
@@ -481,7 +481,7 @@ function getNextUserId() {
   return `USR${String(maxId + 1).padStart(3, '0')}`;
 }
 
-function getNextAccountNumber() {
+export function getNextAccountNumber() {
   const users = getUsers();
   const maxAcc = users.reduce((max, u) => {
     if (!u.accountNumber) return max;
@@ -492,36 +492,36 @@ function getNextAccountNumber() {
 }
 
 /* ========== TRANSACTION OPERATIONS ========== */
-function getTransactions(userId) {
+export function getTransactions(userId) {
   const all = _getData(STORAGE_KEYS.TRANSACTIONS);
   if (!userId) return all;
   return all.filter(t => t.userId === userId);
 }
 
-function addTransaction(txn) {
+export function addTransaction(txn) {
   const transactions = _getData(STORAGE_KEYS.TRANSACTIONS);
   transactions.push(txn);
   _setData(STORAGE_KEYS.TRANSACTIONS, transactions);
 }
 
-function getAllTransactions() {
+export function getAllTransactions() {
   return _getData(STORAGE_KEYS.TRANSACTIONS);
 }
 
 /* ========== BENEFICIARY OPERATIONS ========== */
-function getBeneficiaries(userId) {
+export function getBeneficiaries(userId) {
   const all = _getData(STORAGE_KEYS.BENEFICIARIES);
   if (!userId) return all;
   return all.filter(b => b.userId === userId);
 }
 
-function addBeneficiary(ben) {
+export function addBeneficiary(ben) {
   const beneficiaries = _getData(STORAGE_KEYS.BENEFICIARIES);
   beneficiaries.push(ben);
   _setData(STORAGE_KEYS.BENEFICIARIES, beneficiaries);
 }
 
-function updateBeneficiary(id, updates) {
+export function updateBeneficiary(id, updates) {
   const beneficiaries = _getData(STORAGE_KEYS.BENEFICIARIES);
   const index = beneficiaries.findIndex(b => b.id === id);
   if (index === -1) return false;
@@ -530,13 +530,13 @@ function updateBeneficiary(id, updates) {
   return true;
 }
 
-function deleteBeneficiary(id) {
+export function deleteBeneficiary(id) {
   const beneficiaries = _getData(STORAGE_KEYS.BENEFICIARIES);
   const filtered = beneficiaries.filter(b => b.id !== id);
   _setData(STORAGE_KEYS.BENEFICIARIES, filtered);
 }
 
-function getNextBeneficiaryId() {
+export function getNextBeneficiaryId() {
   const bens = _getData(STORAGE_KEYS.BENEFICIARIES);
   const maxId = bens.reduce((max, b) => {
     const num = parseInt(b.id.replace('BEN', ''), 10);
@@ -546,19 +546,19 @@ function getNextBeneficiaryId() {
 }
 
 /* ========== FIXED DEPOSIT OPERATIONS ========== */
-function getFixedDeposits(userId) {
+export function getFixedDeposits(userId) {
   const all = _getData(STORAGE_KEYS.FIXED_DEPOSITS);
   if (!userId) return all;
   return all.filter(fd => fd.userId === userId);
 }
 
-function addFixedDeposit(fd) {
+export function addFixedDeposit(fd) {
   const fds = _getData(STORAGE_KEYS.FIXED_DEPOSITS);
   fds.push(fd);
   _setData(STORAGE_KEYS.FIXED_DEPOSITS, fds);
 }
 
-function closeFixedDeposit(id) {
+export function closeFixedDeposit(id) {
   const fds = _getData(STORAGE_KEYS.FIXED_DEPOSITS);
   const index = fds.findIndex(fd => fd.id === id);
   if (index === -1) return null;
@@ -567,7 +567,7 @@ function closeFixedDeposit(id) {
   return fds[index];
 }
 
-function getNextFDId() {
+export function getNextFDId() {
   const fds = _getData(STORAGE_KEYS.FIXED_DEPOSITS);
   const maxId = fds.reduce((max, fd) => {
     const num = parseInt(fd.id.replace('FD', ''), 10);
@@ -577,54 +577,54 @@ function getNextFDId() {
 }
 
 /* ========== BILL OPERATIONS ========== */
-function getBills(userId) {
+export function getBills(userId) {
   const all = _getData(STORAGE_KEYS.BILLS);
   if (!userId) return all;
   return all.filter(b => b.userId === userId);
 }
 
-function addBill(bill) {
+export function addBill(bill) {
   const bills = _getData(STORAGE_KEYS.BILLS);
   bills.push(bill);
   _setData(STORAGE_KEYS.BILLS, bills);
 }
 
-function getBillers() {
+export function getBillers() {
   return getSeedBillers();
 }
 
 /* ========== UPI OPERATIONS ========== */
-function getUPIRegistrations(userId) {
+export function getUPIRegistrations(userId) {
   const all = _getData(STORAGE_KEYS.UPI);
   if (!userId) return all;
   return all.filter(u => u.userId === userId);
 }
 
-function addUPIRegistration(upi) {
+export function addUPIRegistration(upi) {
   const upis = _getData(STORAGE_KEYS.UPI);
   upis.push(upi);
   _setData(STORAGE_KEYS.UPI, upis);
 }
 
-function deleteUPIRegistration(id) {
+export function deleteUPIRegistration(id) {
   const upis = _getData(STORAGE_KEYS.UPI);
   _setData(STORAGE_KEYS.UPI, upis.filter(u => u.id !== id));
 }
 
 /* ========== NOTIFICATION OPERATIONS ========== */
-function getNotifications(userId) {
+export function getNotifications(userId) {
   const all = _getData(STORAGE_KEYS.NOTIFICATIONS);
   if (!userId) return all;
   return all.filter(n => n.userId === userId);
 }
 
-function addNotification(notification) {
+export function addNotification(notification) {
   const notifications = _getData(STORAGE_KEYS.NOTIFICATIONS);
   notifications.push(notification);
   _setData(STORAGE_KEYS.NOTIFICATIONS, notifications);
 }
 
-function markNotificationRead(id) {
+export function markNotificationRead(id) {
   const notifications = _getData(STORAGE_KEYS.NOTIFICATIONS);
   const index = notifications.findIndex(n => n.id === id);
   if (index !== -1) {
@@ -633,7 +633,7 @@ function markNotificationRead(id) {
   }
 }
 
-function markAllNotificationsRead(userId) {
+export function markAllNotificationsRead(userId) {
   const notifications = _getData(STORAGE_KEYS.NOTIFICATIONS);
   notifications.forEach(n => {
     if (n.userId === userId) n.read = true;
@@ -642,12 +642,12 @@ function markAllNotificationsRead(userId) {
 }
 
 /* ========== ATM/BRANCH DATA ========== */
-function getATMBranches() {
+export function getATMBranches() {
   return getSeedATMBranches();
 }
 
 /* ========== FD INTEREST RATES ========== */
-function getFDInterestRate(tenureMonths) {
+export function getFDInterestRate(tenureMonths) {
   if (tenureMonths <= 1.5) return 4.5;   // 7-45 days
   if (tenureMonths <= 6) return 5.5;     // 46-179 days
   if (tenureMonths <= 12) return 6.5;    // 180 days - 1 year
@@ -657,7 +657,7 @@ function getFDInterestRate(tenureMonths) {
 }
 
 /* ========== RESET APP (for testing) ========== */
-function resetApp() {
+export function resetApp() {
   Object.values(STORAGE_KEYS).forEach(key => {
     localStorage.removeItem(key);
   });

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getAccountBalance, getRecentTransactions } from '../utils/data';
+import { getTransactions, updateUser } from '../utils/data';
 import { ArrowUpRight, ArrowDownRight, IndianRupee, CreditCard, ShieldCheck } from 'lucide-react';
 
 export default function Dashboard() {
@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (currentUser) {
-      setBalance(getAccountBalance(currentUser.id));
+      setBalance(currentUser.balance);
       setTransactions(getRecentTransactions(currentUser.id, 5));
     }
   }, [currentUser]);

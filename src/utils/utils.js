@@ -13,7 +13,7 @@ let toastCounter = 0;
  * @param {string} [title] - Optional title
  * @param {number} [duration] - Auto-dismiss in ms (0 = no auto-dismiss)
  */
-function showToast(message, type = 'info', title, duration) {
+export function showToast(message, type = 'info', title, duration) {
   let container = document.getElementById('toast-container');
   if (!container) {
     container = document.createElement('div');
@@ -70,7 +70,7 @@ function showToast(message, type = 'info', title, duration) {
   return toastId;
 }
 
-function hideToast(id) {
+export function hideToast(id) {
   const toast = document.getElementById(id);
   if (!toast) return;
   toast.classList.add('toast-exit');
@@ -88,7 +88,7 @@ function hideToast(id) {
  * @param {boolean} [config.closeOnOverlay] - Close when clicking overlay
  * @param {string} [config.size] - 'sm' | 'md' | 'lg'
  */
-function showModal(config) {
+export function showModal(config) {
   hideModal(); // Remove existing
 
   const overlay = document.createElement('div');
@@ -163,7 +163,7 @@ function showModal(config) {
   return overlay;
 }
 
-function hideModal() {
+export function hideModal() {
   const overlay = document.getElementById('modal-container');
   if (!overlay) return;
   overlay.classList.remove('active');
@@ -172,7 +172,7 @@ function hideModal() {
 
 
 /* ========== LOADING STATES ========== */
-function showSpinner(elementId, text = 'Loading...') {
+export function showSpinner(elementId, text = 'Loading...') {
   const element = document.getElementById(elementId);
   if (!element) return;
   
@@ -188,14 +188,14 @@ function showSpinner(elementId, text = 'Loading...') {
   element.setAttribute('data-loaded', 'false');
 }
 
-function hideSpinner(elementId) {
+export function hideSpinner(elementId) {
   const loader = document.getElementById(`${elementId}-loader`);
   if (loader) loader.remove();
   const element = document.getElementById(elementId);
   if (element) element.setAttribute('data-loaded', 'true');
 }
 
-function showSkeleton(elementId, rows = 3) {
+export function showSkeleton(elementId, rows = 3) {
   const element = document.getElementById(elementId);
   if (!element) return;
   
@@ -222,7 +222,7 @@ function showSkeleton(elementId, rows = 3) {
  * @param {number} amount
  * @returns {string} e.g., "₹1,25,000.00"
  */
-function formatCurrency(amount) {
+export function formatCurrency(amount) {
   if (amount === null || amount === undefined) return '₹0.00';
   const formatted = new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -239,7 +239,7 @@ function formatCurrency(amount) {
  * @param {string} [format] - 'short' | 'long' | 'datetime'
  * @returns {string} e.g., "12 Aug 2026"
  */
-function formatDate(dateStr, format = 'short') {
+export function formatDate(dateStr, format = 'short') {
   if (!dateStr) return '-';
   const date = new Date(dateStr);
   
@@ -266,7 +266,7 @@ function formatDate(dateStr, format = 'short') {
  * @param {string} accNo
  * @returns {string} e.g., "NRB0 0100 001"
  */
-function formatAccountNo(accNo) {
+export function formatAccountNo(accNo) {
   if (!accNo) return '-';
   return accNo.replace(/(.{4})/g, '$1 ').trim();
 }
@@ -275,7 +275,7 @@ function formatAccountNo(accNo) {
  * Generate transaction reference number
  * @returns {string} e.g., "TXN20260812XXXXXX"
  */
-function generateTxnRef(prefix = 'TXN') {
+export function generateTxnRef(prefix = 'TXN') {
   const now = new Date();
   const dateStr = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
   const random = String(Math.floor(Math.random() * 1000000)).padStart(6, '0');
@@ -286,7 +286,7 @@ function generateTxnRef(prefix = 'TXN') {
  * Generate a 6-digit OTP
  * @returns {string}
  */
-function generateOTP() {
+export function generateOTP() {
   return String(Math.floor(100000 + Math.random() * 900000));
 }
 
@@ -294,7 +294,7 @@ function generateOTP() {
  * Generate CAPTCHA question
  * @returns {{ question: string, answer: number }}
  */
-function generateCaptcha() {
+export function generateCaptcha() {
   const operators = ['+', '-', '×'];
   const op = operators[Math.floor(Math.random() * operators.length)];
   let a, b, answer;
@@ -324,7 +324,7 @@ function generateCaptcha() {
  * Validate password strength
  * @returns {{ score: number, label: string, color: string }}
  */
-function checkPasswordStrength(password) {
+export function checkPasswordStrength(password) {
   let score = 0;
   if (password.length >= 8) score++;
   if (password.length >= 12) score++;
@@ -344,7 +344,7 @@ function checkPasswordStrength(password) {
  * Validate password meets requirements
  * @returns {{ valid: boolean, errors: string[] }}
  */
-function validatePassword(password) {
+export function validatePassword(password) {
   const errors = [];
   if (password.length < 8) errors.push('Minimum 8 characters required.');
   if (!/[A-Z]/.test(password)) errors.push('At least 1 uppercase letter required.');
@@ -357,28 +357,28 @@ function validatePassword(password) {
 /**
  * Validate email format
  */
-function validateEmail(email) {
+export function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 /**
  * Validate mobile number (10 digits, starts with 6-9)
  */
-function validateMobile(mobile) {
+export function validateMobile(mobile) {
   return /^[6-9]\d{9}$/.test(mobile);
 }
 
 /**
  * Validate PAN card
  */
-function validatePAN(pan) {
+export function validatePAN(pan) {
   return /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan.toUpperCase());
 }
 
 /**
  * Validate Aadhaar (12 digits)
  */
-function validateAadhaar(aadhaar) {
+export function validateAadhaar(aadhaar) {
   const clean = aadhaar.replace(/[\s-]/g, '');
   return /^\d{12}$/.test(clean);
 }
@@ -386,21 +386,21 @@ function validateAadhaar(aadhaar) {
 /**
  * Validate IFSC code
  */
-function validateIFSC(ifsc) {
+export function validateIFSC(ifsc) {
   return /^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifsc.toUpperCase());
 }
 
 /**
  * Validate pincode (6 digits)
  */
-function validatePincode(pincode) {
+export function validatePincode(pincode) {
   return /^[1-9]\d{5}$/.test(pincode);
 }
 
 /**
  * Debounce function
  */
-function debounce(fn, delay = 300) {
+export function debounce(fn, delay = 300) {
   let timer;
   return function (...args) {
     clearTimeout(timer);
@@ -411,14 +411,14 @@ function debounce(fn, delay = 300) {
 /**
  * Generate unique ID
  */
-function generateId(prefix = 'ID') {
+export function generateId(prefix = 'ID') {
   return `${prefix}${Date.now()}${Math.floor(Math.random() * 1000)}`;
 }
 
 /**
  * Mask account number (show last 4 digits)
  */
-function maskAccountNo(accNo) {
+export function maskAccountNo(accNo) {
   if (!accNo || accNo.length < 4) return accNo;
   return 'XXXX' + accNo.slice(-4);
 }
@@ -426,14 +426,14 @@ function maskAccountNo(accNo) {
 /**
  * Mask balance
  */
-function maskBalance() {
+export function maskBalance() {
   return '₹ ****.**';
 }
 
 /**
  * Get greeting based on time
  */
-function getGreeting() {
+export function getGreeting() {
   const hour = new Date().getHours();
   if (hour < 12) return 'Good Morning';
   if (hour < 17) return 'Good Afternoon';
@@ -443,7 +443,7 @@ function getGreeting() {
 /**
  * Get current date time formatted
  */
-function getCurrentDateTime() {
+export function getCurrentDateTime() {
   return new Date().toLocaleDateString('en-IN', {
     weekday: 'long',
     year: 'numeric',
@@ -457,7 +457,7 @@ function getCurrentDateTime() {
 /**
  * Download content as CSV
  */
-function downloadCSV(filename, csvContent) {
+export function downloadCSV(filename, csvContent) {
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
@@ -469,7 +469,7 @@ function downloadCSV(filename, csvContent) {
 /**
  * Get initials from full name
  */
-function getInitials(name) {
+export function getInitials(name) {
   if (!name) return '?';
   return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 }
