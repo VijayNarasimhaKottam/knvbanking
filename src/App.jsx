@@ -8,6 +8,7 @@ import AppLayout from './components/layout/AppLayout';
 // Pages
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Transfer from './pages/Transfer';
 import Profile from './pages/Profile';
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
