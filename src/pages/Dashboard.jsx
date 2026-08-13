@@ -11,7 +11,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (currentUser) {
       setBalance(currentUser.balance);
-      setTransactions(getRecentTransactions(currentUser.id, 5));
+      setTransactions(getTransactions(currentUser.id).slice(0, 5));
     }
   }, [currentUser]);
 
