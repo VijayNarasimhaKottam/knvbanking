@@ -23,43 +23,42 @@ export default function Navbar({ isPublic }) {
   };
 
   return (
-    <nav className={`${isPublic ? 'public-navbar' : 'app-navbar'} ${scrolled ? 'scrolled' : ''}`}>
-      <div className="nav-container">
-        <Link to={currentUser ? "/dashboard" : "/"} className="logo">
-          <img src="/assets/logo.svg" alt="KVN Bank Logo" />
-          <span>KVN Bank</span>
-        </Link>
-        
-        <button 
-          className={`nav-toggle ${mobileOpen ? 'open' : ''}`}
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+    <nav className={`${isPublic ? 'public-navbar' : 'topnav'} ${scrolled ? 'scrolled' : ''}`}>
+      <Link to={currentUser ? "/dashboard" : "/"} className="topnav-brand">
+        <img src="/assets/logo.svg" alt="KVN Bank Logo" />
+        {isPublic ? <span className="topnav-brand-name">KVN <span>Bank</span></span> : <span>KVN <span>Bank</span></span>}
+      </Link>
+      
+      <button 
+        className={`nav-toggle ${mobileOpen ? 'open' : ''}`}
+        onClick={() => setMobileOpen(!mobileOpen)}
+      >
+        {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
 
-        <div className={`nav-links ${mobileOpen ? 'open' : ''}`}>
-          {isPublic ? (
-            <>
-              <Link to="/about">About Us</Link>
-              <Link to="/services">Services</Link>
-              <Link to="/contact">Contact</Link>
-              <Link to="/login" className="btn btn-primary btn-sm" style={{ marginLeft: '1rem', padding: '0.5rem 1.25rem' }}>Login</Link>
-              <Link to="/register" className="btn btn-outline btn-sm">Open Account</Link>
-            </>
-          ) : (
-            <div className="user-menu">
-              <span className="user-greeting">Welcome, {currentUser?.fullName?.split(' ')[0]}</span>
-              <div className="user-dropdown">
-                <Link to="/profile" className="dropdown-item">
-                  <User size={16} /> Profile
-                </Link>
-                <button onClick={handleLogout} className="dropdown-item text-danger">
-                  <LogOut size={16} /> Logout
-                </button>
-              </div>
+      <div className={`nav-links ${mobileOpen ? 'open' : ''}`}>
+        {isPublic ? (
+          <>
+            <Link to="/about">About Us</Link>
+            <Link to="/services">Services</Link>
+            <Link to="/contact">Contact</Link>
+            <Link to="/login" className="btn btn-primary btn-sm" style={{ marginLeft: '1rem', padding: '0.5rem 1.25rem' }}>Login</Link>
+            <Link to="/register" className="btn btn-outline btn-sm">Open Account</Link>
+          </>
+        ) : (
+          <div className="user-menu">
+            <div className="user-avatar">
+              {currentUser?.fullName?.charAt(0)}
             </div>
-          )}
-        </div>
+            <div className="user-details">
+              <span className="user-name">{currentUser?.fullName}</span>
+              <span className="user-role">Last Login: Just now</span>
+            </div>
+            <button className="btn-icon" onClick={handleLogout} title="Logout">
+              <LogOut size={20} />
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   );
