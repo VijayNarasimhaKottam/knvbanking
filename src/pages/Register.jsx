@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { generateId, generateTxnRef, getNextUserId, getNextAccountNumber, formatAccountNo } from '../utils/utils';
-import { addUser, addNotification, addTransaction } from '../utils/data';
+import { generateId, generateTxnRef, formatAccountNo } from '../utils/utils';
+import { addUser, addNotification, addTransaction, getNextUserId, getNextAccountNumber } from '../utils/data';
 
 export default function Register() {
   const navigate = useNavigate();
