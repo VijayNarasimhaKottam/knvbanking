@@ -22,8 +22,8 @@ export default function App() {
         <Routes>
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
           </Route>
+          <Route path="/login" element={<Login />} />
           
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />

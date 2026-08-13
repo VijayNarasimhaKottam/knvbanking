@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Shield, Eye, EyeOff, RefreshCw } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { generateCaptcha } from '../utils/utils';
 import { login as authenticateUser } from '../utils/auth';
@@ -38,7 +37,6 @@ export default function Login() {
     e.preventDefault();
     setError(null);
 
-    // Basic Validation
     if (!username || !password || !captchaAnswer) {
       setError('Please fill in all fields.');
       return;
@@ -52,7 +50,6 @@ export default function Login() {
 
     setLoading(true);
     
-    // Simulate network delay
     setTimeout(() => {
       setLoading(false);
       
@@ -64,7 +61,6 @@ export default function Login() {
         return;
       }
 
-      // Success
       login(authResult.session, rememberMe);
       navigate('/dashboard');
       
@@ -72,109 +68,139 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container fade-in">
-      <div className="login-card">
-        <div className="login-header">
-          <div className="security-badge">
-            <Shield size={20} style={{ color: 'var(--success)' }} />
-            <span>Secure Login</span>
-          </div>
-          <h2>Welcome Back</h2>
-          <p>Please enter your credentials to access your account.</p>
+    <div className="auth-layout">
+      {/* Brand Side (Left on Desktop) */}
+      <div className="auth-brand-side">
+        <Link to="/" className="auth-logo">
+          <img src="/assets/logo.svg" alt="KVN Bank Logo" />
+          <span>KVN <span>Bank</span></span>
+        </Link>
+        
+        <div className="auth-showcase">
+          <h1>Secure banking at your fingertips.</h1>
+          <p>Access your accounts, transfer funds, and manage your wealth securely with KVN NetBanking.</p>
         </div>
-
+        
+        <div className="auth-graphic"></div>
+      </div>
+      
+      {/* Form Side (Right on Desktop) */}
+      <div className="auth-form-side">
+        <div className="auth-mobile-logo">
+          <img src="/assets/logo.svg" alt="KVN Bank Logo" />
+          <span>KVN Bank</span>
+        </div>
+        
+        <Link to="/" className="back-link">← Back to Home</Link>
+        
+        <div className="auth-header">
+          <h2>Welcome Back</h2>
+          <p>Please enter your credentials to login.</p>
+        </div>
+        
         {error && (
-          <div className="toast toast-error" style={{ position: 'relative', top: 0, right: 0, width: '100%', marginBottom: '1rem', transform: 'none' }}>
+          <div className="invalid-feedback" style={{ display: 'block', marginBottom: '1rem', padding: '0.75rem', background: 'var(--color-danger-light)', borderRadius: 'var(--radius-md)' }}>
             {error}
           </div>
         )}
-
+        
         <form className="auth-form" onSubmit={handleLogin} noValidate>
           <div className="form-group">
-            <label htmlFor="username">Username / Customer ID</label>
+            <label htmlFor="username" className="form-label">Username / Customer ID <span className="required">*</span></label>
             <input 
               type="text" 
               id="username" 
               className="form-control" 
-              placeholder="Enter your username" 
+              placeholder="Enter username" 
+              required 
+              autoComplete="username" 
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              required 
             />
           </div>
-
+          
           <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <div className="password-input-group">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+              <label htmlFor="password" className="form-label">Password <span className="required">*</span></label>
+              <Link to="/forgot-password" tabIndex="-1" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-primary-mid)', fontWeight: 600 }}>Forgot Password?</Link>
+            </div>
+            <div className="password-wrapper">
               <input 
-                type={showPassword ? 'text' : 'password'} 
+                type={showPassword ? "text" : "password"} 
                 id="password" 
                 className="form-control" 
-                placeholder="Enter your password" 
+                placeholder="Enter password" 
+                required 
+                autoComplete="current-password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required 
               />
               <button 
                 type="button" 
-                className="password-toggle"
+                className="password-toggle" 
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label="Show password"
               >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                {showPassword ? '👁️' : '👁️‍🗨️'}
               </button>
-            </div>
-            <div style={{ textAlign: 'right', marginTop: '0.5rem' }}>
-              <a href="/forgot-password" style={{ fontSize: '0.875rem', color: 'var(--primary)', textDecoration: 'none' }}>Forgot Password?</a>
             </div>
           </div>
 
           <div className="form-group">
-            <label>Security Verification</label>
-            <div className="captcha-container">
-              <div className="captcha-box">
-                <span id="captcha-q">{captcha.question}</span>
-                <button type="button" className="btn btn-icon" onClick={refreshCaptcha} title="Refresh CAPTCHA">
-                  <RefreshCw size={16} />
-                </button>
-              </div>
+            <label className="form-label">Security Check <span className="required">*</span></label>
+            <div className="captcha-wrapper">
+              <div className="captcha-question">{captcha.question}</div>
               <input 
                 type="number" 
                 id="captcha-answer" 
                 className="form-control captcha-input" 
-                placeholder="Answer" 
+                placeholder="?" 
+                required 
                 value={captchaAnswer}
                 onChange={(e) => setCaptchaAnswer(e.target.value)}
-                required 
               />
+              <button 
+                type="button" 
+                className="captcha-refresh" 
+                onClick={refreshCaptcha}
+                aria-label="Refresh CAPTCHA"
+              >
+                ↻
+              </button>
             </div>
           </div>
-
-          <div className="form-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
-            <input 
-              type="checkbox" 
-              id="remember-me" 
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            <label htmlFor="remember-me" style={{ marginBottom: 0, fontWeight: 500 }}>Remember Me</label>
+          
+          <div className="form-group">
+            <label className="form-check">
+              <input 
+                type="checkbox" 
+                id="remember-me" 
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              <span className="form-check-label">Remember my Username</span>
+            </label>
           </div>
-
+          
           <button 
             type="submit" 
             className="btn btn-primary w-full mt-4" 
-            style={{ padding: '0.875rem' }} 
+            style={{ padding: '0.875rem' }}
             disabled={loading}
           >
-            {loading ? 'Authenticating...' : 'Login Securely'}
+            {loading ? 'Logging in...' : 'Login Securely'}
           </button>
         </form>
         
-        <div className="login-footer">
-          <p>Don't have an account? <a href="/register">Open an Account</a></p>
-          <div className="security-notice">
-            <p>Your connection to this site is encrypted and secure.</p>
-            <p>Never share your password or OTP with anyone.</p>
+        <div className="security-notice">
+          <div className="security-notice-icon">🔒</div>
+          <div>
+            <strong>Security Notice:</strong> KVN Bank will never ask for your Password, PIN, or OTP over phone or email. Ensure the URL starts with https://
           </div>
+        </div>
+        
+        <div className="auth-footer">
+          Don't have an account? <Link to="/register">Register for NetBanking</Link>
         </div>
       </div>
     </div>
