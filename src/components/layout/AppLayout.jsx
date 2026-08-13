@@ -12,10 +12,10 @@ export default function AppLayout() {
 
   return (
     <div className="app-layout">
-      <Navbar isPublic={false} />
-      <div className="app-body">
-        <Sidebar />
-        <main className="app-content">
+      <Sidebar />
+      <div className="main-wrapper">
+        <Navbar isPublic={false} />
+        <main className="main-content">
           <Outlet />
         </main>
       </div>

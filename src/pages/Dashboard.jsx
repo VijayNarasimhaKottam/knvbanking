@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { getTransactions, updateUser } from '../utils/data';
-import { ArrowUpRight, ArrowDownRight, IndianRupee, CreditCard, ShieldCheck } from 'lucide-react';
+import { getTransactions } from '../utils/data';
+import { formatAccountNo, formatCurrency, formatDate } from '../utils/utils';
 
 export default function Dashboard() {
   const { currentUser } = useAuth();
@@ -15,116 +16,152 @@ export default function Dashboard() {
     }
   }, [currentUser]);
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(amount);
-  };
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-IN', {
-      year: 'numeric', month: 'short', day: 'numeric',
-      hour: '2-digit', minute: '2-digit'
-    });
-  };
-
   return (
-    <div className="dashboard-container fade-in">
-      <div className="dashboard-header">
-        <h1>Dashboard</h1>
-        <p className="text-secondary">Welcome back, {currentUser?.fullName}</p>
+    <div className="fade-in">
+      <div className="page-header">
+        <h1 className="page-title">Welcome back, {currentUser?.fullName}</h1>
+        <p className="page-subtitle">Here's a summary of your accounts and recent activities.</p>
       </div>
 
-      <div className="metrics-grid">
-        <div className="metric-card">
-          <div className="metric-header">
-            <h3>Available Balance</h3>
-            <div className="metric-icon" style={{ backgroundColor: 'rgba(37, 99, 235, 0.1)', color: 'var(--primary)' }}>
-              <IndianRupee size={24} />
+      <div className="dashboard-grid">
+        
+        {/* Main Content Column */}
+        <div className="dashboard-main">
+          
+          {/* Balance Card */}
+          <div className="balance-card">
+            <div className="balance-header">
+              <div className="account-info">
+                <span className="account-type">{currentUser?.accountType || 'Savings'} Account</span>
+                <span className="account-number">{formatAccountNo(currentUser?.accountNumber)}</span>
+              </div>
+              <div className="logo-mark">
+                <img src="/assets/logo.svg" alt="KVN" height="32" style={{ filter: 'brightness(0) invert(1)' }} />
+              </div>
             </div>
-          </div>
-          <div className="metric-value">{formatCurrency(balance)}</div>
-          <div className="metric-footer">
-            <span className="text-success" style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-              <ArrowUpRight size={16} /> +2.4%
-            </span>
-            <span className="text-secondary" style={{ fontSize: '0.875rem' }}> from last month</span>
-          </div>
-        </div>
-
-        <div className="metric-card">
-          <div className="metric-header">
-            <h3>Account Details</h3>
-            <div className="metric-icon" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)' }}>
-              <ShieldCheck size={24} />
+            
+            <div className="balance-amount">
+              <div className="balance-label">Available Balance</div>
+              <div className="balance-value">{formatCurrency(balance)}</div>
             </div>
-          </div>
-          <div style={{ marginTop: '1rem' }}>
-            <p style={{ marginBottom: '0.5rem', color: 'var(--text)' }}>
-              <strong>A/C No:</strong> {currentUser?.accountNumber}
-            </p>
-            <p style={{ marginBottom: '0.5rem', color: 'var(--text)' }}>
-              <strong>IFSC:</strong> {currentUser?.ifscCode}
-            </p>
-            <p style={{ marginBottom: 0, color: 'var(--text)' }}>
-              <strong>Type:</strong> {currentUser?.accountType}
-            </p>
-          </div>
-        </div>
-
-        <div className="metric-card">
-          <div className="metric-header">
-            <h3>Active Cards</h3>
-            <div className="metric-icon" style={{ backgroundColor: 'rgba(139, 92, 246, 0.1)', color: 'var(--accent)' }}>
-              <CreditCard size={24} />
+            
+            <div className="balance-actions">
+              <Link to="/transfer" className="btn btn-outline" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.1)' }}>Send Money</Link>
+              <Link to="/transactions" className="btn btn-primary" style={{ background: 'white', color: 'var(--color-primary-mid)' }}>Statement</Link>
             </div>
-          </div>
-          <div style={{ marginTop: '1rem', padding: '1rem', background: 'linear-gradient(135deg, #1e293b, #0f172a)', borderRadius: '0.5rem', color: 'white' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-              <span style={{ fontWeight: '600' }}>KVN Platinum</span>
-              <span>VISA</span>
-            </div>
-            <div style={{ fontSize: '1.25rem', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
-              **** **** **** 4281
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem', opacity: 0.8 }}>
-              <span>{currentUser?.fullName}</span>
-              <span>12/28</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="dashboard-content">
-        <div className="recent-transactions">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h2>Recent Transactions</h2>
-            <a href="/transactions" className="btn btn-outline btn-sm">View All</a>
           </div>
 
-          <div className="transaction-list">
-            {transactions.length === 0 ? (
-              <p className="text-secondary" style={{ textAlign: 'center', padding: '2rem' }}>No recent transactions found.</p>
-            ) : (
-              transactions.map(t => (
-                <div key={t.id} className="transaction-item">
-                  <div className={`transaction-icon ${t.type}`}>
-                    {t.type === 'credit' ? <ArrowDownRight size={20} /> : <ArrowUpRight size={20} />}
+          {/* Quick Actions */}
+          <div className="quick-actions-section">
+            <div className="section-header">
+              <h2 className="section-title">Quick Actions</h2>
+            </div>
+            
+            <div className="quick-actions-grid">
+              <Link to="/transfer" className="action-card">
+                <div className="action-icon">💸</div>
+                <span className="action-label">Transfer</span>
+              </Link>
+              <Link to="/bills" className="action-card">
+                <div className="action-icon">🧾</div>
+                <span className="action-label">Pay Bills</span>
+              </Link>
+              <Link to="/deposits" className="action-card">
+                <div className="action-icon">💰</div>
+                <span className="action-label">Open FD</span>
+              </Link>
+              <Link to="/cards" className="action-card">
+                <div className="action-icon">💳</div>
+                <span className="action-label">Manage Cards</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Recent Transactions */}
+          <div className="quick-actions-section" style={{ marginTop: 'var(--space-8)' }}>
+            <div className="section-header">
+              <h2 className="section-title">Recent Transactions</h2>
+              <Link to="/transactions" className="btn btn-sm btn-outline">View All</Link>
+            </div>
+            
+            <div className="recent-transactions">
+              <div className="txn-list">
+                {transactions.length > 0 ? (
+                  transactions.map(txn => (
+                    <div className="txn-item" key={txn.id}>
+                      <div className="txn-icon" style={{ 
+                        background: txn.type === 'credit' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                        color: txn.type === 'credit' ? 'var(--color-success)' : 'var(--color-danger)'
+                      }}>
+                        {txn.type === 'credit' ? '↓' : '↑'}
+                      </div>
+                      <div className="txn-details">
+                        <div className="txn-title">{txn.description}</div>
+                        <div className="txn-meta">{formatDate(txn.timestamp)} • {txn.mode}</div>
+                      </div>
+                      <div className={`txn-amount ${txn.type === 'credit' ? 'text-success' : ''}`}>
+                        {txn.type === 'credit' ? '+' : '-'}{formatCurrency(txn.amount)}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="txn-item" style={{ justifyContent: 'center', color: 'var(--color-text-secondary)' }}>
+                    No recent transactions found.
                   </div>
-                  <div className="transaction-details">
-                    <h4 className="transaction-title">{t.description}</h4>
-                    <span className="transaction-date">{formatDate(t.date)}</span>
-                  </div>
-                  <div className={`transaction-amount ${t.type}`}>
-                    {t.type === 'credit' ? '+' : '-'}{formatCurrency(t.amount)}
-                  </div>
-                </div>
-              ))
-            )}
+                )}
+              </div>
+            </div>
           </div>
+          
         </div>
+        
+        {/* Sidebar Column */}
+        <div className="dashboard-sidebar">
+          
+          {/* Credit Card Mock */}
+          <div className="cc-widget">
+            <div className="cc-chip"></div>
+            <div className="cc-number">XXXX XXXX XXXX {currentUser?.accountNumber?.slice(-4) || '0000'}</div>
+            <div className="cc-details">
+              <div>
+                <div>Card Holder</div>
+                <div className="cc-val" style={{ textTransform: 'uppercase' }}>{currentUser?.fullName}</div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div>Expires</div>
+                <div className="cc-val">12/28</div>
+              </div>
+            </div>
+            <img src="/assets/logo.svg" alt="KVN" style={{ position: 'absolute', bottom: '20px', right: '20px', height: '24px', filter: 'brightness(0) invert(1)', opacity: 0.5 }} />
+          </div>
+
+          {/* Spending Analytics Mock */}
+          <div className="chart-widget">
+            <div style={{ fontWeight: 600, marginBottom: '4px' }}>Spending Analysis</div>
+            <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Last 7 Days</div>
+            
+            <div className="chart-bars">
+              <div className="chart-bar-container"><div className="chart-bar" style={{ height: '30%' }}></div><div className="chart-label">M</div></div>
+              <div className="chart-bar-container"><div className="chart-bar" style={{ height: '70%' }}></div><div className="chart-label">T</div></div>
+              <div className="chart-bar-container"><div className="chart-bar" style={{ height: '40%' }}></div><div className="chart-label">W</div></div>
+              <div className="chart-bar-container"><div className="chart-bar" style={{ height: '90%' }}></div><div className="chart-label">T</div></div>
+              <div className="chart-bar-container"><div className="chart-bar" style={{ height: '20%' }}></div><div className="chart-label">F</div></div>
+              <div className="chart-bar-container"><div className="chart-bar" style={{ height: '50%' }}></div><div className="chart-label">S</div></div>
+              <div className="chart-bar-container"><div className="chart-bar" style={{ height: '10%' }}></div><div className="chart-label">S</div></div>
+            </div>
+          </div>
+
+          {/* Promo Widget */}
+          <div className="chart-widget" style={{ background: 'var(--color-surface-alt)', borderLeft: '4px solid var(--color-warning)' }}>
+            <div style={{ fontWeight: 600, marginBottom: '8px' }}>Pre-approved Loan</div>
+            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '12px', lineHeight: 1.4 }}>
+              You are eligible for a personal loan of up to ₹5,00,000 instantly.
+            </p>
+            <button className="btn btn-sm btn-primary">Apply Now</button>
+          </div>
+
+        </div>
+        
       </div>
     </div>
   );
