@@ -28,6 +28,11 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (currentStep < 3) {
+      nextStep();
+      return;
+    }
+
     if (userData.password !== userData.confirmPassword) {
       alert("Passwords do not match");
       return;
@@ -167,7 +172,7 @@ export default function Register() {
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="fullname" className="form-label">Full Name (as per PAN) *</label>
-                    <input type="text" id="fullname" className="form-control" required value={userData.fullname} onChange={handleChange} />
+                    <input type="text" id="fullname" className="form-control" placeholder="John Doe" required value={userData.fullname} onChange={handleChange} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="dob" className="form-label">Date of Birth *</label>
@@ -187,15 +192,15 @@ export default function Register() {
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="pan" className="form-label">PAN Number *</label>
-                    <input type="text" id="pan" className="form-control" required value={userData.pan} onChange={handleChange} style={{ textTransform: 'uppercase' }} />
+                    <input type="text" id="pan" className="form-control" placeholder="ABCDE1234F" required value={userData.pan} onChange={handleChange} style={{ textTransform: 'uppercase' }} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="aadhaar" className="form-label">Aadhaar Number *</label>
-                    <input type="text" id="aadhaar" className="form-control" maxLength="12" required value={userData.aadhaar} onChange={handleChange} />
+                    <input type="text" id="aadhaar" className="form-control" placeholder="XXXX XXXX XXXX" maxLength="12" required value={userData.aadhaar} onChange={handleChange} />
                   </div>
                 </div>
                 <div className="form-actions" style={{ justifyContent: 'flex-end' }}>
-                  <button type="button" className="btn btn-primary" onClick={nextStep}>Next Step →</button>
+                  <button type="submit" className="btn btn-primary">Next Step →</button>
                 </div>
               </div>
             )}
@@ -207,21 +212,21 @@ export default function Register() {
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="email" className="form-label">Email Address *</label>
-                    <input type="email" id="email" className="form-control" required value={userData.email} onChange={handleChange} />
+                    <input type="email" id="email" className="form-control" placeholder="john@example.com" required value={userData.email} onChange={handleChange} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="mobile" className="form-label">Mobile Number *</label>
-                    <input type="tel" id="mobile" className="form-control" required value={userData.mobile} onChange={handleChange} maxLength="10" />
+                    <input type="tel" id="mobile" className="form-control" placeholder="9876543210" required value={userData.mobile} onChange={handleChange} maxLength="10" />
                   </div>
                 </div>
                 <div className="form-group">
                   <label htmlFor="address" className="form-label">Residential Address *</label>
-                  <textarea id="address" className="form-control" required value={userData.address} onChange={handleChange}></textarea>
+                  <textarea id="address" className="form-control" placeholder="Flat/House No, Street, Landmark" required value={userData.address} onChange={handleChange}></textarea>
                 </div>
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="city" className="form-label">City *</label>
-                    <input type="text" id="city" className="form-control" required value={userData.city} onChange={handleChange} />
+                    <input type="text" id="city" className="form-control" placeholder="e.g. Mumbai" required value={userData.city} onChange={handleChange} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="state" className="form-label">State *</label>
@@ -235,12 +240,12 @@ export default function Register() {
                   </div>
                   <div className="form-group">
                     <label htmlFor="pincode" className="form-label">Pincode *</label>
-                    <input type="text" id="pincode" className="form-control" required value={userData.pincode} onChange={handleChange} maxLength="6" />
+                    <input type="text" id="pincode" className="form-control" placeholder="400001" required value={userData.pincode} onChange={handleChange} maxLength="6" />
                   </div>
                 </div>
                 <div className="form-actions">
                   <button type="button" className="btn btn-outline" onClick={prevStep}>← Back</button>
-                  <button type="button" className="btn btn-primary" onClick={nextStep}>Next Step →</button>
+                  <button type="submit" className="btn btn-primary">Next Step →</button>
                 </div>
               </div>
             )}
@@ -260,17 +265,17 @@ export default function Register() {
                   </div>
                   <div className="form-group">
                     <label htmlFor="username" className="form-label">NetBanking Username *</label>
-                    <input type="text" id="username" className="form-control" required value={userData.username} onChange={handleChange} />
+                    <input type="text" id="username" className="form-control" placeholder="Choose a username" required value={userData.username} onChange={handleChange} />
                   </div>
                 </div>
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="password" className="form-label">Password *</label>
-                    <input type="password" id="password" className="form-control" required value={userData.password} onChange={handleChange} />
+                    <input type="password" id="password" className="form-control" placeholder="Create password" required value={userData.password} onChange={handleChange} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="confirmPassword" className="form-label">Confirm Password *</label>
-                    <input type="password" id="confirmPassword" className="form-control" required value={userData.confirmPassword} onChange={handleChange} />
+                    <input type="password" id="confirmPassword" className="form-control" placeholder="Confirm password" required value={userData.confirmPassword} onChange={handleChange} />
                   </div>
                 </div>
                 <div className="form-row">
@@ -283,7 +288,7 @@ export default function Register() {
                   </div>
                   <div className="form-group">
                     <label htmlFor="secA" className="form-label">Security Answer *</label>
-                    <input type="text" id="secA" className="form-control" required value={userData.secA} onChange={handleChange} />
+                    <input type="text" id="secA" className="form-control" placeholder="Answer" required value={userData.secA} onChange={handleChange} />
                   </div>
                 </div>
                 <div className="form-group" style={{ marginTop: 'var(--space-4)', background: 'var(--color-surface)', padding: 'var(--space-4)', borderRadius: 'var(--radius-md)' }}>
