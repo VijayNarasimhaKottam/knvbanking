@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Shield, Zap, TrendingUp, CreditCard } from 'lucide-react';
 
 export default function Home() {
   useEffect(() => {
@@ -20,6 +19,7 @@ export default function Home() {
 
   return (
     <>
+      {/* Hero Section */}
       <header className="hero">
         <div className="hero-bg-shapes">
           <div className="hero-shape hero-shape-1"></div>
@@ -85,6 +85,7 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Stats Section */}
       <section className="stats">
         <div className="stats-grid">
           <div className="stat-item">
@@ -106,6 +107,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Features Section */}
       <section className="features">
         <div className="section-header">
           <h2>Why Choose KVN Bank?</h2>
@@ -113,26 +115,86 @@ export default function Home() {
         </div>
         
         <div className="features-grid">
-          <div className="feature-card" data-hover-glow>
-            <div className="feature-icon"><Zap size={24} /></div>
+          <Link to="/transfer" className="feature-card" data-hover-glow style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="feature-icon">⚡</div>
             <h3>Instant Transfers</h3>
             <p>Send money instantly 24/7 via IMPS, NEFT, RTGS, and UPI. Zero downtime, zero hassle.</p>
-          </div>
-          <div className="feature-card" data-hover-glow>
-            <div className="feature-icon"><Shield size={24} /></div>
+          </Link>
+
+          <Link to="/security" className="feature-card" data-hover-glow style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="feature-icon">🛡️</div>
             <h3>Bank-Grade Security</h3>
             <p>Your money and data are protected with 256-bit encryption and multi-factor authentication.</p>
-          </div>
-          <div className="feature-card" data-hover-glow>
-            <div className="feature-icon"><TrendingUp size={24} /></div>
+          </Link>
+
+          <Link to="/deposits" className="feature-card" data-hover-glow style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="feature-icon">📈</div>
             <h3>Smart Investments</h3>
             <p>Grow your wealth with our high-yield Fixed Deposits and intelligent investment options.</p>
-          </div>
-          <div className="feature-card" data-hover-glow>
-            <div className="feature-icon"><CreditCard size={24} /></div>
+          </Link>
+
+          <Link to="/bills" className="feature-card" data-hover-glow style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="feature-icon">🧾</div>
             <h3>One-Click Payments</h3>
             <p>Pay your utility bills, mobile recharges, and credit cards instantly from a single dashboard.</p>
+          </Link>
+
+          <Link to="/register" className="feature-card" data-hover-glow style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="feature-icon">📱</div>
+            <h3>Digital First</h3>
+            <p>Open an account online in 5 minutes. No branch visits, no paperwork required.</p>
+          </Link>
+
+          <Link to="/contact" className="feature-card" data-hover-glow style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="feature-icon">🎯</div>
+            <h3>24/7 Support</h3>
+            <p>Our dedicated customer support team is always ready to assist you with any queries.</p>
+          </Link>
+        </div>
+      </section>
+
+      {/* App Showcase */}
+      <section className="showcase">
+        <div className="showcase-inner">
+          <div className="showcase-visual">
+            <div className="mock-dashboard">
+              <div className="mock-header">
+                <div className="mock-dot"></div>
+                <div className="mock-dot"></div>
+                <div className="mock-dot"></div>
+              </div>
+              <div className="mock-body">
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                  <div style={{ flex: 1, height: '60px', background: 'var(--color-surface)', borderRadius: 'var(--radius-md)' }}></div>
+                  <div style={{ flex: 1, height: '60px', background: 'var(--color-surface)', borderRadius: 'var(--radius-md)' }}></div>
+                </div>
+                <div className="mock-chart"></div>
+                <div style={{ height: '120px', background: 'var(--color-surface)', borderRadius: 'var(--radius-md)' }}></div>
+              </div>
+            </div>
           </div>
+          
+          <div className="showcase-content">
+            <h2 style={{ fontSize: 'var(--text-3xl)', marginBottom: 'var(--space-4)' }}>A beautiful dashboard for all your needs</h2>
+            <p style={{ fontSize: 'var(--text-lg)', color: 'var(--color-text-secondary)', lineHeight: 'var(--leading-relaxed)' }}>
+              Experience a clutter-free interface that puts you in control. View your balances, track expenses, and manage your investments all in one place.
+            </p>
+            <ul>
+              <li>Real-time transaction tracking</li>
+              <li>Detailed account statements</li>
+              <li>Visual spending analysis</li>
+              <li>Instant beneficiary management</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="cta">
+        <div className="cta-content">
+          <h2>Ready to upgrade your banking?</h2>
+          <p style={{ marginBottom: '1.5rem', opacity: 0.9 }}>Join millions of satisfied customers and experience the KVN Bank difference today.</p>
+          <Link to="/register" className="btn btn-primary btn-lg">Open Your Account Now</Link>
         </div>
       </section>
     </>
