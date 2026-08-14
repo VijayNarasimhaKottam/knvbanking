@@ -25,7 +25,7 @@ export default function Cards() {
               <div className="cc-val">12/28</div>
             </div>
           </div>
-          <img src="/assets/logo.svg" alt="KVN" style={{ position: 'absolute', bottom: '20px', right: '20px', height: '24px', filter: 'brightness(0) invert(1)', opacity: 0.5 }} />
+          <img src="/assets/logo.svg" alt="KVN" style={{ position: 'absolute', bottom: '20px', right: '20px', height: '24px', opacity: 0.8 }} />
         </div>
       </div>
     </div>

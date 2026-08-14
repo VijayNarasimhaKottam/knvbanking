@@ -8,7 +8,7 @@ export default function Footer({ isPublic }) {
       <div className="footer-grid">
         <div className="footer-section">
           <div className="topnav-brand" style={{ marginBottom: 'var(--space-4)' }}>
-            <img src="/assets/logo.svg" alt="KVN Bank Logo" style={{ filter: 'brightness(0) invert(1)', height: '36px', width: 'auto' }} />
+            <img src="/assets/logo.svg" alt="KVN Bank Logo" style={{ height: '36px', width: 'auto' }} />
             <span className="topnav-brand-name" style={{ color: 'white' }}>KVN <span style={{ color: 'var(--color-accent)' }}>Bank</span></span>
           </div>
           <p style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>

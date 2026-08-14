@@ -36,7 +36,7 @@ export default function Dashboard() {
                 <span className="account-number">{formatAccountNo(currentUser?.accountNumber)}</span>
               </div>
               <div className="logo-mark">
-                <img src="/assets/logo.svg" alt="KVN" height="32" style={{ filter: 'brightness(0) invert(1)' }} />
+                <img src="/assets/logo.svg" alt="KVN" height="32" />
               </div>
             </div>
             
@@ -132,7 +132,7 @@ export default function Dashboard() {
                 <div className="cc-val">12/28</div>
               </div>
             </div>
-            <img src="/assets/logo.svg" alt="KVN" style={{ position: 'absolute', bottom: '20px', right: '20px', height: '24px', filter: 'brightness(0) invert(1)', opacity: 0.5 }} />
+            <img src="/assets/logo.svg" alt="KVN" style={{ position: 'absolute', bottom: '20px', right: '20px', height: '24px', opacity: 0.8 }} />
           </div>
 
           {/* Spending Analytics Mock */}
