@@ -97,6 +97,13 @@ export default function Login() {
           <h2>Welcome Back</h2>
           <p>Please enter your credentials to login.</p>
         </div>
+
+        <div style={{ padding: '0.85rem 1rem', background: 'var(--color-surface-alt)', borderRadius: 'var(--radius-md)', marginBottom: '1.5rem', border: '1px solid var(--color-border)', fontSize: '0.85rem' }}>
+          <div style={{ fontWeight: 600, color: 'var(--color-primary)', marginBottom: '0.25rem' }}>💡 Demo Credentials</div>
+          <div style={{ color: 'var(--color-text-secondary)' }}>
+            <strong>Username:</strong> john.doe &nbsp;|&nbsp; <strong>Password:</strong> Test@1234
+          </div>
+        </div>
         
         {error && (
           <div className="invalid-feedback" style={{ display: 'block', marginBottom: '1rem', padding: '0.75rem', background: 'var(--color-danger-light)', borderRadius: 'var(--radius-md)' }}>

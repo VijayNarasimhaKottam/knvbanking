@@ -452,8 +452,15 @@ export function getUserById(id) {
   return getUsers().find(u => u.id === id) || null;
 }
 
-export function getUserByUsername(username) {
-  return getUsers().find(u => u.username.toLowerCase() === username.toLowerCase()) || null;
+export function getUserByUsername(identifier) {
+  if (!identifier) return null;
+  const cleanId = identifier.trim().toLowerCase();
+  return getUsers().find(u => 
+    (u.username && u.username.toLowerCase() === cleanId) ||
+    (u.email && u.email.toLowerCase() === cleanId) ||
+    (u.accountNumber && u.accountNumber.toLowerCase() === cleanId) ||
+    (u.id && u.id.toLowerCase() === cleanId)
+  ) || null;
 }
 
 export function updateUser(id, updates) {

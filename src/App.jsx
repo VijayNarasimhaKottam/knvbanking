@@ -9,6 +9,7 @@ import AppLayout from './components/layout/AppLayout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 import Contact from './pages/Contact';
 import Locator from './pages/Locator';
 import Dashboard from './pages/Dashboard';
@@ -61,6 +62,7 @@ export default function App() {
           {/* Standalone Auth Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           
           {/* Protected App Routes */}
           <Route element={<AppLayout />}>
