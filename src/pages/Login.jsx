@@ -99,7 +99,10 @@ export default function Login() {
         </div>
 
         <div style={{ padding: '0.85rem 1rem', background: 'var(--color-surface-alt)', borderRadius: 'var(--radius-md)', marginBottom: '1.5rem', border: '1px solid var(--color-border)', fontSize: '0.85rem' }}>
-          <div style={{ fontWeight: 600, color: 'var(--color-primary)', marginBottom: '0.25rem' }}>💡 Demo Credentials</div>
+          <div style={{ fontWeight: 600, color: 'var(--color-primary)', marginBottom: '0.35rem' }}>💡 Demo Accounts</div>
+          <div style={{ color: 'var(--color-text-secondary)', marginBottom: '0.2rem' }}>
+            <strong>Username:</strong> vijay_798 &nbsp;|&nbsp; <strong>Password:</strong> VijayN@123
+          </div>
           <div style={{ color: 'var(--color-text-secondary)' }}>
             <strong>Username:</strong> john.doe &nbsp;|&nbsp; <strong>Password:</strong> Test@1234
           </div>

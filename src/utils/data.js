@@ -20,6 +20,37 @@ export const STORAGE_KEYS = {
 export function getSeedUsers() {
   return [
     {
+      id: 'USR000',
+      username: 'vijay_798',
+      passwordHash: btoa('VijayN@123'),
+      role: 'customer',
+      fullName: 'Vijay Kottam',
+      dob: '1992-08-15',
+      gender: 'Male',
+      email: 'vijay@example.com',
+      mobile: '9876543210',
+      address: '100 Banking Plaza, MG Road',
+      city: 'Hyderabad',
+      state: 'Telangana',
+      pincode: '500001',
+      aadhaar: 'XXXX-XXXX-7890',
+      pan: 'VIJAY1234K',
+      accountNumber: 'NRB0000001',
+      accountType: 'Savings',
+      ifscCode: 'NRJB0001001',
+      balance: 250000.00,
+      status: 'active',
+      loginAttempts: 0,
+      lockoutUntil: null,
+      createdAt: '2024-01-01T00:00:00Z',
+      lastLogin: null,
+      securityQuestion: "Mother's maiden name",
+      securityAnswer: 'sharma',
+      nominees: [],
+      upiId: 'vijay@kvnbank',
+      mpin: '1234'
+    },
+    {
       id: 'USR001',
       username: 'john.doe',
       passwordHash: btoa('Test@1234'),
@@ -415,17 +446,42 @@ export function getSeedBillers() {
 
 /* ========== INITIALIZATION ========== */
 export function initializeApp() {
-  if (localStorage.getItem(STORAGE_KEYS.INITIALIZED) === 'true') {
-    return;
+  const users = getUsers();
+  const seedUsers = getSeedUsers();
+
+  if (!users || users.length === 0) {
+    localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(seedUsers));
+  } else {
+    let updated = false;
+    seedUsers.forEach(seedUser => {
+      if (!users.some(u => u.username.toLowerCase() === seedUser.username.toLowerCase() || u.id === seedUser.id)) {
+        users.push(seedUser);
+        updated = true;
+      }
+    });
+    if (updated) {
+      localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+    }
   }
 
-  localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(getSeedUsers()));
-  localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(getSeedTransactions()));
-  localStorage.setItem(STORAGE_KEYS.BENEFICIARIES, JSON.stringify(getSeedBeneficiaries()));
-  localStorage.setItem(STORAGE_KEYS.FIXED_DEPOSITS, JSON.stringify(getSeedFixedDeposits()));
-  localStorage.setItem(STORAGE_KEYS.BILLS, JSON.stringify([]));
-  localStorage.setItem(STORAGE_KEYS.UPI, JSON.stringify([]));
-  localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(getSeedNotifications()));
+  if (!localStorage.getItem(STORAGE_KEYS.TRANSACTIONS)) {
+    localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(getSeedTransactions()));
+  }
+  if (!localStorage.getItem(STORAGE_KEYS.BENEFICIARIES)) {
+    localStorage.setItem(STORAGE_KEYS.BENEFICIARIES, JSON.stringify(getSeedBeneficiaries()));
+  }
+  if (!localStorage.getItem(STORAGE_KEYS.FIXED_DEPOSITS)) {
+    localStorage.setItem(STORAGE_KEYS.FIXED_DEPOSITS, JSON.stringify(getSeedFixedDeposits()));
+  }
+  if (!localStorage.getItem(STORAGE_KEYS.BILLS)) {
+    localStorage.setItem(STORAGE_KEYS.BILLS, JSON.stringify([]));
+  }
+  if (!localStorage.getItem(STORAGE_KEYS.UPI)) {
+    localStorage.setItem(STORAGE_KEYS.UPI, JSON.stringify([]));
+  }
+  if (!localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS)) {
+    localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(getSeedNotifications()));
+  }
   localStorage.setItem(STORAGE_KEYS.INITIALIZED, 'true');
 }
 
@@ -459,7 +515,8 @@ export function getUserByUsername(identifier) {
     (u.username && u.username.toLowerCase() === cleanId) ||
     (u.email && u.email.toLowerCase() === cleanId) ||
     (u.accountNumber && u.accountNumber.toLowerCase() === cleanId) ||
-    (u.id && u.id.toLowerCase() === cleanId)
+    (u.id && u.id.toLowerCase() === cleanId) ||
+    (cleanId === 'vijay' && u.username.toLowerCase() === 'vijay_798')
   ) || null;
 }
 
